@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Contracts\BaseContract;
+use Illuminate\View\View;
 use App\Traits\BaseResponseTrait;
 use Illuminate\Http\JsonResponse;
-use Illuminate\View\View;
+use App\Http\Controllers\Controller;
+use App\Repositories\Contracts\BaseContract;
 use Illuminate\Routing\Controllers\Middleware;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BaseController extends Controller
 {
@@ -19,6 +20,7 @@ class BaseController extends Controller
     protected mixed $modelResource;
     protected array $relations = [];
     protected string $viewName;
+    protected string $partialViewName;
 
     /**
      * BaseApiController constructor.
@@ -26,11 +28,12 @@ class BaseController extends Controller
      * @param BaseContract $contract
      * @param mixed $modelResource
      */
-    public function __construct(BaseContract $contract, mixed $modelResource, string $viewName = '')
+    public function __construct(BaseContract $contract, mixed $modelResource, string $viewName = '', string $partialViewName = '')
     {
         $this->contract = $contract;
         $this->modelResource = $modelResource;
         $this->viewName = $viewName;
+        $this->partialViewName = $partialViewName;
         if (request()->has('embed')) {
             $this->parseIncludes(request('embed'));
         }
@@ -56,8 +59,12 @@ class BaseController extends Controller
             return $this->respondWithCollection($models);
         }
 
+        if (request()->ajax()) {
+            return $this->renderView($this->partialViewName, $models);
+        }
+
         // Render the view with the models data
-        return $this->renderView($this->viewName, compact('models')); // Specify your view name
+        return $this->renderView($this->viewName, $models);
     }
 
     /**
@@ -74,12 +81,27 @@ class BaseController extends Controller
      * renderView() to render a Blade view.
      *
      * @param string $view
-     * @param array $data
-     * @return View
+     * @param array $models
+     * @return JsonResponse|View
      */
-    protected function renderView(string $view, array $data = []): View
+    protected function renderView(string $view, LengthAwarePaginator $data): JsonResponse|View
     {
-        return view($view, $data);
+        if (request()->ajax()) {
+            return response()->json([
+                'html' => view($view, ['models' => $data])->render(),  // Pass data as an associative array
+                'totalEntries' => $data->total(),
+                'currentPage' => $data->currentPage(),
+                'totalPages' => $data->lastPage()
+            ]);
+        }
+    
+        // For regular requests, pass pagination data and models to the view
+        return view($view, [
+            'models' => $data,
+            'totalEntries' => $data->total(),
+            'currentPage' => $data->currentPage(),
+            'totalPages' => $data->lastPage()
+        ]);
     }
 
     /**

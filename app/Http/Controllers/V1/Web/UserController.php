@@ -28,7 +28,8 @@ class UserController extends BaseController implements HasMiddleware
     public function __construct(UserContract $contract)
     {
         $this->viewName = 'pages.users.index';
-        parent::__construct($contract, UserResource::class, $this->viewName);
+        $this->partialViewName = 'pages.users.partials.rows';
+        parent::__construct($contract, UserResource::class, $this->viewName, $this->partialViewName);
         $this->relations = ['roles', 'permissions', 'avatar'];
     }
 
