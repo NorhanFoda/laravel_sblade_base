@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1{{namespace}};
+
+use App\Http\Controllers\Api\V1\BaseApiController;
+use App\Http\Requests\{{modelName}}Request;
+use App\Http\Resources\{{modelName}}Resource;
+use App\Models\{{modelName}};
+use App\Repositories\Contracts\{{modelName}}Contract;
+use Exception;
+use \Illuminate\Http\JsonResponse;
+
+class {{modelName}}Controller extends BaseApiController
+{
+
+    /**
+     * @return void
+     */
+    public static function middleware()
+    {
+        self::permissionMiddlewares('{{modelName}}');
+    }
+
+    /**
+     * {{modelName}}Controller constructor.
+     * @param {{modelName}}Contract $contract
+     */
+    public function __construct({{modelName}}Contract $contract)
+    {
+        parent::__construct($contract, {{modelName}}Resource::class, '{{modelName}}');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param {{modelName}}Request $request
+     * @return JsonResponse
+     */
+    public function store({{modelName}}Request $request): JsonResponse
+    {
+        ${{modelObject}} = $this->contract->create($request->validated());
+        return $this->respondWithModel(${{modelObject}}->load($this->relations));
+    }
+
+   /**
+    * Display the specified resource.
+    * @param {{modelName}} ${{modelObject}}
+    * @return JsonResponse
+    */
+   public function show({{modelName}} ${{modelObject}}): JsonResponse
+   {
+       return $this->respondWithModel(${{modelObject}}->load($this->relations));
+   }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param {{modelName}}Request $request
+     * @param {{modelName}} ${{modelObject}}
+     * @return JsonResponse
+     */
+    public function update({{modelName}}Request $request, {{modelName}} ${{modelObject}}) : JsonResponse
+    {
+        ${{modelObject}} = $this->contract->update(${{modelObject}}, $request->validated());
+        return $this->respondWithModel(${{modelObject}}->load($this->relations));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param {{modelName}} ${{modelObject}}
+     * @return JsonResponse
+     */
+    public function destroy({{modelName}} ${{modelObject}}): JsonResponse
+    {
+        $this->contract->remove(${{modelObject}});
+        return $this->respondWithSuccess(__('messages.deleted'));
+    }
+
+    /**
+     * active & inactive the specified resource from storage.
+     * @param {{modelName}} ${{modelObject}}
+     * @return JsonResponse
+     */
+    public function changeActivation({{modelName}} ${{modelObject}}): JsonResponse
+    {
+        $this->contract->toggleField(${{modelObject}}, 'is_active');
+        return $this->respondWithModel(${{modelObject}}->load($this->relations));
+    }
+
+}

@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "build-watch": "vite build --watch"
+    },
+    "devDependencies": {
+        "@intlify/unplugin-vue-i18n": "^4.0.0",
+        "@rollup/plugin-alias": "^5.1.0",
+        "@rollup/plugin-inject": "^5.0.5",
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0",
+        "lodash": "^4.17.21",
+        "postcss": "^8.4.38",
+        "unplugin-auto-import": "^0.17.5",
+        "unplugin-element-plus": "^0.8.0",
+        "unplugin-vue-components": "^0.27.0",
+        "vite": "^5.0",
+        "vue-loader": "^17.4.2"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^41.3.1",
+        "@ckeditor/ckeditor5-vue": "^5.1.0",
+        "@element-plus/icons-vue": "^2.3.1",
+        "@vitejs/plugin-vue": "^5.0.4",
+        "bootstrap": "^5.3.3",
+        "dayjs": "^1.11.11",
+        "element-plus": "^2.7.2",
+        "jquery": "^3.7.1",
+        "nprogress": "^0.2.0",
+        "path": "^0.12.7",
+        "pinia": "^2.1.7",
+        "pinia-plugin-persistedstate": "^3.2.1",
+        "sass": "^1.76.0",
+        "vue": "^3.4.26",
+        "vue-i18n": "^9.13.1",
+        "vue-router": "^4.3.2"
+    }
+}

@@ -1,0 +1,131 @@
+<script setup>
+import {ref, onMounted, getCurrentInstance} from 'vue';
+import {{modelName}}Api from "@api/{{modelNameLower}}.api";
+import {useLoaderStore} from "@store/loader";
+import { useRouter } from 'vue-router';
+
+const loaderStore = useLoaderStore();
+const app = getCurrentInstance();
+const t = app.appContext.config.globalProperties.$t;
+const router = useRouter();
+let resources = ref([]);
+let openModal = ref(false);
+let resource = ref({});
+let title = ref('');
+let pagination = ref({
+    page: 1
+});
+let filters = ref({
+    page: 1,
+    keyword: '',
+    embed: 'relation:columns',
+    includeEmptyRelations: false,
+    columns: 'id'
+});
+
+async function getResources(page = 1) {
+    filters.value.page = page;
+    {{modelName}}Api.list(filters.value)
+        .then(({data}) => {
+            resources.value = data.data;
+            pagination.value = data.meta;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+const openCreateModal = () => {
+    title.value = ('messages.add_new')
+    resource.value = {};
+    openModal.value = true;
+}
+
+const openUpdateModal = (selectedResource) => {
+    title.value = ('messages.edit')
+    resource.value = cloneDeep(selectedResource)
+    openModal.value = true;
+}
+
+const afterCreate = async (data) => {
+    GridActions.afterCreate(resources.value, data);
+    openModal.value = false;
+    ElMessage({
+        message: t('messages.success'),
+        type: 'success',
+    })
+}
+
+const afterUpdate = async (data) => {
+    GridActions.afterUpdate(resources.value, data);
+    openModal.value = false;
+    ElMessage({
+        message: t('messages.success'),
+        type: 'success',
+    })
+}
+
+const closeModal = () => {
+    openModal.value = false;
+}
+
+onMounted(async () => {
+    await getResources();
+})
+
+</script>
+<template>
+    <div class="main-content side-content">
+        <div class="container">
+            <page-header title="sidebar.{{modelNamePlural}}">
+                <template v-slot:button>
+                    <el-button type="primary" class="btn btn-primary" :icon="Plus" @click="openCreateModal()"
+                               v-if="hasPermission('create', '{{modelName}}')">
+                        {{ $t('messages.add_new') }}
+                    </el-button>
+                    <{{modelName}}Form :resource="resource" :openModal="openModal" :title="title"
+                                     @close="closeModal" @create="afterCreate" @update="afterUpdate"/>
+                </template>
+            </page-header>
+            <div class="card">
+                <div class="card-body pb-0">
+                    <Filters @submit="getResources" :model="filters"/>
+                </div>
+            </div>
+            <spinner/>
+            <el-table :data="resources" style="width: 100%" v-if="resources.length">
+                <el-table-column label="#" type="index"/>
+                <el-table-column :label="$t('messages.name')" prop="name"/>
+                <el-table-column :label="$t('global.actions')">
+                    <template #default="scope">
+                        <router-link :to="'/{{modelNamePlural}}/show/' + scope.row.id" v-if="hasPermission('read', '{{modelName}}')">
+                            <span class="btn btn-primary btn-icon text-white">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </router-link>
+                        <router-link :to="'/{{modelNamePlural}}/edit/' + scope.row.id" v-if="hasPermission('update', '{{modelName}}')">
+                            <span class="mx-1 btn btn-info btn-icon text-white">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                        </router-link>
+                        <ConfirmBox @confirmAction="deleteResource(scope.row)" v-if="hasPermission('delete', '{{modelName}}')"
+                                    :title="t('messages.are_you_sure')">
+                            <template #content>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-icon text-white">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </template>
+                        </ConfirmBox>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <strong v-if="!resources.length && !loaderStore.loading" class="text-danger">{{
+                    $t('global.no_results')
+                }}</strong>
+            <Pagination :pagination="pagination" @paginate="getResources"/>
+        </div>
+    </div>
+</template>
+
+
+

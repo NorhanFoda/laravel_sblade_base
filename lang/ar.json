@@ -1,0 +1,97 @@
+{
+    "ar": "ar",
+    "en": "en",
+    "sidebar": {
+        "dashboard": "لوحة التحكم",
+        "home": "الرئيسية",
+        "roles": "الأدوار",
+        "users": "المستخدمين",
+        "setups": "الإعدادات"
+    },
+    "global": {
+        "name": "الاسم",
+        "creation_date": "تاريخ الإنشاء",
+        "actions": "الإجراءات",
+        "search": "بحث",
+        "sign_in_message": "تسجيل الدخول إلى حسابك",
+        "sign_in": "تسجيل الدخول",
+        "forget_password": "نسيت كلمة المرور",
+        "403" : "لا تمتلك الصلاحية لعرض هذه الصفحة",
+        "no_results" : "لا توجد نتائج !",
+        "options": "الخيارات"
+    },
+    "forms": {
+        "delete": "حذف",
+        "edit": "تعديل",
+        "view": "عرض",
+        "save": "حفظ",
+        "submit": "إرسال",
+        "cancel": "إلغاء",
+        "select": "اختيار",
+        "apply": "تطبيق",
+        "inputs": {
+            "name": "الاسم",
+            "password": "كلمة المرور",
+            "password_confirmation": "تأكيد كلمة المرور"
+        },
+        "change": "تغيير",
+        "inactive": "غير نشط",
+        "permissions" : "الصلاحيات"
+    },
+    "pagination": {
+        "first_page": "الصفحة الأولى",
+        "last_page": "الصفحة الأخيرة",
+        "prev": "السابق",
+        "next": "التالي",
+        "total": "مجموع النتائج",
+        "showed": "عرض النتائج من",
+        "to": "إلى"
+    },
+    "messages": {
+        "success": "تم بنجاح",
+        "error": "عذرًا ، حدث خطأ ما!",
+        "success_create": "تم الإنشاء بنجاح",
+        "success_update": "تم التحديث بنجاح",
+        "success_delete": "تم الحذف بنجاح",
+        "sign_out": "تسجيل الخروج",
+        "profile": "الملف الشخصي",
+        "add_new": "إضافة جديد",
+        "edit": "تعديل",
+        "name": "الاسم",
+        "image": "الصورة",
+        "email": "البريد الإلكتروني",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "name_ar": "الاسم (بالعربية)",
+        "phone": "الهاتف",
+        "role": "الدور",
+        "active": "نشط",
+        "profile_photo": "صورة الملف الشخصي",
+        "submit": "إرسال",
+        "password": "كلمة المرور",
+        "basic_info": "معلومات أساسية",
+        "file_upload_text": "اسحب الملف هنا أو",
+        "click_to_upload": "انقر للتحميل",
+        "file_upload_img_hint": "الملفات بحجم أقل من {size} ميجابايت",
+        "file_uploaded": "تم تحميل الملف بنجاح",
+        "file_deleted": "تم حذف الملف بنجاح",
+        "preview_not_available": "المعاينة غير متاحة",
+        "download": "تحميل",
+        "view": "عرض",
+        "description": "الوصف",
+        "are_you_sure": "هل أنت متأكد؟"
+    },
+    "notifications": {
+        "Hello": "مرحبًا"
+    },
+    "validation": {
+        "Value is required": "القيمة مطلوبة",
+        "general" : "عذرًا ، لقد تخطيت بعض التحققات!"
+    },
+    "permissions": {
+    },
+    "placeholder": "اكتب ",
+    "responses": {
+        "can't delete": "لا يمكن الحذف ، النموذج لديه سجلات ذات صلة"
+    }
+}

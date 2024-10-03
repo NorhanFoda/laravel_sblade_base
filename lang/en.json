@@ -1,0 +1,99 @@
+{
+    "ar": "ar",
+    "en": "en",
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "home": "Home",
+        "roles": "Roles & Permissions",
+        "users": "Users",
+        "setups": "Setups",
+        "profile": "Profile"
+    },
+    "global": {
+        "name": "name",
+        "creation_date": "Creation Date",
+        "actions": "Actions",
+        "search": "Search",
+        "sign_in_message": "Sign in to Your Account",
+        "sign_in": "Sign in",
+        "forget_password": "Forgot password",
+        "403" : "you doesn't have permission to view this page",
+        "no_results" : "No results !",
+        "options": "Options"
+    },
+    "forms": {
+        "delete": "Delete",
+        "edit": "Edit",
+        "view": "View",
+        "save": "Save",
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "select": "Select",
+        "apply": "apply",
+        "inputs": {
+            "name": "name",
+            "password": "password",
+            "password_confirmation": "password confirmation"
+        },
+        "change": "Change",
+        "inactive": "Inactive",
+        "permissions" : "permissions"
+    },
+    "pagination": {
+        "first_page": "First Page",
+        "last_page": "Last Page",
+        "prev": "Previous",
+        "next": "Next",
+        "total": "Total results",
+        "showed": "Show results from",
+        "to": "To"
+    },
+    "messages": {
+        "success": "Done Successfully",
+        "error": "Oops , Something went wrong !",
+        "success_create": "Created Successfully",
+        "success_update": "Updated Successfully",
+        "success_delete": "Deleted Successfully",
+        "sign_out": "Sign out",
+        "profile": "Profile",
+        "add_new": "Add New",
+        "edit": "Edit",
+        "name": "Name",
+        "image": "Image",
+        "email": "Email",
+        "status": "Status",
+        "date": "Date",
+        "name_ar": "Name (Arabic)",
+        "phone": "Phone",
+        "role": "Role",
+        "active": "Active",
+        "profile_photo": "Profile Photo",
+        "submit": "Submit",
+        "password": "Password",
+        "basic_info": "Basic Info",
+        "file_upload_text": "Drop file here or",
+        "click_to_upload": "click to upload",
+        "file_upload_img_hint": "files with a size less than {size} MB",
+        "file_uploaded": "File uploaded successfully",
+        "file_deleted": "File deleted successfully",
+        "preview_not_available": "Preview not available",
+        "download": "Download",
+        "view": "View",
+        "description": "Description",
+        "are_you_sure": "Are you sure?",
+        "edit_profile": "Edit Profile"
+    },
+    "notifications": {
+        "Hello": "Hello"
+    },
+    "validation": {
+        "Value is required": "Value is required",
+        "general" : "Oops, you missed some validations!"
+    },
+    "permissions": {
+    },
+    "placeholder": "Type ",
+    "responses": {
+        "can't delete": "Can not delete, model has related records"
+    }
+}
