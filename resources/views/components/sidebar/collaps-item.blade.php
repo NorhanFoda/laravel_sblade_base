@@ -1,0 +1,1 @@
+<a class="collapse-item" href="{{$href ?? '#'}}">{{$label ?? 'sidebar link'}}</a>

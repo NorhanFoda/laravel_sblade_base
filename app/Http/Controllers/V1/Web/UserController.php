@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Repositories\Contracts\UserContract;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\View\View;
 
 class UserController extends BaseController implements HasMiddleware
 {
@@ -26,7 +27,8 @@ class UserController extends BaseController implements HasMiddleware
      */
     public function __construct(UserContract $contract)
     {
-        parent::__construct($contract, UserResource::class, 'pages.users.index');
+        $this->viewName = 'pages.users.index';
+        parent::__construct($contract, UserResource::class, $this->viewName);
         $this->relations = ['roles', 'permissions', 'avatar'];
     }
 
@@ -46,11 +48,22 @@ class UserController extends BaseController implements HasMiddleware
     /**
      * Display the specified resource.
      *
+     * @return View
+     */
+    public function create(): View
+    {
+        return view('pages.users.create');
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param User $user
      * @return JsonResponse
      */
-    public function show(User $user): JsonResponse
+    public function show(User $user): JsonResponse|View
     {
+        $this->viewName = 'pages.users.view';
         return $this->respondWithModel($user);
     }
 

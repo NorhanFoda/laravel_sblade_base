@@ -147,7 +147,7 @@ class BaseController extends Controller
             return $this->respond($resource);
         }
 
-        return $this->renderView('your.model.view.name', compact('resource')); // Specify your model view name
+        return $this->renderView($this->viewName, compact('resource')); // Specify your model view name
     }
 
     /**
