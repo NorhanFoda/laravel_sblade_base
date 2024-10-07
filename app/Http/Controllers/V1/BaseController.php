@@ -81,21 +81,36 @@ class BaseController extends Controller
      * renderView() to render a Blade view.
      *
      * @param string $view
-     * @param array $models
+     * @param mixed $data
      * @return JsonResponse|View
      */
-    protected function renderView(string $view, LengthAwarePaginator $data): JsonResponse|View
+    protected function renderView(string $view, $data): JsonResponse|View
+    {
+        if ($data instanceof LengthAwarePaginator) {
+            return $this->renderCollectionView($view, $data);
+        } else {
+            return $this->renderModelView($view, $data);
+        }
+    }
+
+    /**
+     * renderCollectionView() to render a Blade view for data collection.
+     *
+     * @param string $view
+     * @param mixed $data
+     * @return JsonResponse|View
+     */
+    private function renderCollectionView(String $view, $data): JsonResponse|View
     {
         if (request()->ajax()) {
             return response()->json([
-                'html' => view($view, ['models' => $data])->render(),  // Pass data as an associative array
+                'html' => view($view, ['models' => $data])->render(),
                 'totalEntries' => $data->total(),
                 'currentPage' => $data->currentPage(),
                 'totalPages' => $data->lastPage()
             ]);
         }
-    
-        // For regular requests, pass pagination data and models to the view
+
         return view($view, [
             'models' => $data,
             'totalEntries' => $data->total(),
@@ -103,6 +118,25 @@ class BaseController extends Controller
             'totalPages' => $data->lastPage()
         ]);
     }
+
+    /**
+     * renderModelView() to render a Blade view for single model.
+     *
+     * @param string $view
+     * @param mixed $data
+     * @return JsonResponse|View
+     */
+    private function renderModelView(String $view, $data): JsonResponse|View
+    {
+        if (request()->ajax()) {
+            return response()->json([
+                'html' => view($view, ['model' => $data])->render(),
+                'success' => true
+            ]);
+        }
+        return view($view, ['model' => $data]);
+    }
+
 
     /**
      * respondWithCollection() used to take collection
@@ -160,17 +194,34 @@ class BaseController extends Controller
      * @param $model
      * @return JsonResponse|View
      */
-    protected function respondWithModel($model): JsonResponse|View
+    protected function respondWithModel($model, $message = []): JsonResponse|View
     {
         $resource = new $this->modelResource($model->load($this->relations));
 
         // Check if the request expects a JSON response or a view
-        if (request()->wantsJson()) {
-            return $this->respond($resource);
+        if (request()->wantsJson() || request()->ajax()) {
+            return $this->respond($resource, [], $message);
         }
 
-        return $this->renderView($this->viewName, compact('resource')); // Specify your model view name
+        return $this->renderView($this->viewName, compact('resource', 'message'));
     }
+
+    /**
+     * respond() used to return resource with status and headers
+     *
+     * @param $resources
+     * @param array $headers
+     * @return mixed
+     */
+    protected function respond($resources, array $headers = [], $message = []): mixed
+    {
+        return $resources
+            ->additional(['status' => $this->getStatusCode(), 'message' => $message])
+            ->response()
+            ->setStatusCode($this->getStatusCode())
+            ->withHeaders($headers);
+    }
+
 
     /**
      * model middlewares for permissions

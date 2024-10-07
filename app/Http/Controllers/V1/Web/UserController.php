@@ -40,7 +40,8 @@ class UserController extends BaseController implements HasMiddleware
      */
     public function create(): View
     {
-        return view('pages.users.form')->with(['resource' => $this->respondWithModel(new User)]);
+        $this->viewName = 'pages.users.form';
+        return $this->respondWithModel(new User);
     }
 
     /**
@@ -53,7 +54,7 @@ class UserController extends BaseController implements HasMiddleware
     {
         $data = $request->validated();
         $user = $this->contract->create($data);
-        return $this->respondWithModel($user);
+        return $this->respondWithModel($user, ['message' => __('messages.action_completed_successfully')]);
     }
 
     /**

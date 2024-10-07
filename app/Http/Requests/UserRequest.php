@@ -26,11 +26,12 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         $rules = [
             'name' => config('validations.string.req'),
             'email' => sprintf(config('validations.email.req'), 'users', 'email', $this->user?->id),
-            'role_id' => sprintf(config('validations.model.req'), 'roles'),
-            'user_avatar' => sprintf(config('validations.model.null'), 'files'),
+            // 'role_id' => sprintf(config('validations.model.req'), 'roles'),
+            // 'user_avatar' => sprintf(config('validations.model.null'), 'files'),
         ];
         match ($this->method()) {
             'POST' => $rules['password'] = config('validations.password.req'),

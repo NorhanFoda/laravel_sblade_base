@@ -17,3 +17,6 @@
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{asset('UI/assets/v1/js/material-dashboard.min.js?v=3.1.0')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{{-- toaster --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
