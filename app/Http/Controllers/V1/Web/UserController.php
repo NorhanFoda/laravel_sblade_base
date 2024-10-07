@@ -34,6 +34,16 @@ class UserController extends BaseController implements HasMiddleware
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return View
+     */
+    public function create(): View
+    {
+        return view('pages.users.form')->with(['resource' => $this->respondWithModel(new User)]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param UserRequest $request
@@ -49,23 +59,24 @@ class UserController extends BaseController implements HasMiddleware
     /**
      * Display the specified resource.
      *
-     * @return View
-     */
-    public function create(): View
-    {
-        return view('pages.users.create');
-    }
-
-    /**
-     * Display the specified resource.
-     *
      * @param User $user
-     * @return JsonResponse
+     * @return JsonResponse|view
      */
     public function show(User $user): JsonResponse|View
     {
-        $this->viewName = 'pages.users.view';
+        $this->viewName = 'pages.users.show';
         return $this->respondWithModel($user);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param User $user
+     * @return view
+     */
+    public function edit(User $user)
+    {
+        return view('pages.users.form')->with(['resource' => $this->respondWithModel($user)]);
     }
 
     /**

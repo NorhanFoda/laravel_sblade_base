@@ -7,7 +7,7 @@
         <ul class="pagination">
             @if ($currentPage > 1)
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous" 
+                    <a class="page-link" href="#" aria-label="{{__('pagination.prev')}}" 
                        onclick="event.preventDefault(); getResources({{ $currentPage - 1 }});">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -22,7 +22,7 @@
             @endfor
             @if ($currentPage < $totalPages)
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next" 
+                    <a class="page-link" href="#" aria-label="{{__('pagination.next')}}" 
                        onclick="event.preventDefault(); getResources({{ $currentPage + 1 }});">
                         <span aria-hidden="true">&raquo;</span>
                     </a>

@@ -2,7 +2,7 @@
 
 @section('content')
     <x-page-header previousPage="Pages" currentPage="Users" previousPageLink="#">
-        <x-header-button label="New User" />
+        <x-header-button label="New User" :href="route('users.create')" />
     </x-page-header>
 
     <div class="row">

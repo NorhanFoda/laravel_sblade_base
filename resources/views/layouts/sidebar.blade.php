@@ -7,8 +7,8 @@
 
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <x-sidebar.item href="{{ route('dashboard') }}" icon="dashboard" label="Dashboard" />
-            <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="Users" />
+            <x-sidebar.item href="{{ route('dashboard') }}" icon="dashboard" label="{{__('sidebar.dashboard')}}" />
+            <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="{{__('sidebar.users')}}" />
             {{-- <x-sidebar.item href="./pages/tables.html" icon="table_view" label="Tables" />
             <x-sidebar.item href="./pages/billing.html" icon="receipt_long" label="Billing" />
             <x-sidebar.item href="./pages/virtual-reality.html" icon="view_in_ar" label="Virtual Reality" />

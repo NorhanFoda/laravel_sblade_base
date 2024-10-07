@@ -29,6 +29,8 @@
 
     @include('layouts.styles')
 
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
+
     @stack('css')
 
 </head>
@@ -58,8 +60,9 @@
 
     @include('layouts.style-settings')
     
-    @include('layouts.scripts')
+    {{-- @vite(['resources/js/app.js']) --}}
 
+    @include('layouts.scripts')
     @stack('js')
 </body>
 
