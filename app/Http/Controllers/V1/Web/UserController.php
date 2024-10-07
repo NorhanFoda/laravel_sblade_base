@@ -77,8 +77,8 @@ class UserController extends BaseController implements HasMiddleware
      */
     public function edit(User $user)
     {
-        return view('pages.users.form')->with(['resource' => $this->respondWithModel($user)]);
-    }
+        $this->viewName = 'pages.users.form';
+        return $this->respondWithModel($user);    }
 
     /**
      * Update the specified resource in storage.
