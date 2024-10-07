@@ -1,8 +1,38 @@
-<!-- Custom fonts for this template-->
-<link href="{{asset('UI/assets/v1/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 <link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link href="{{asset('UI/assets/v1/css/sb-admin-2.min.css')}}" rel="stylesheet">
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="{{asset('UI/assets/v1/img/apple-icon.png')}}"
+    />
+    <link rel="icon" type="image/png" href="{{asset('UI/assets/v1/img/favicon.png')}}" />
+    <!--     Fonts and icons     -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700"
+    />
+    <!-- Nucleo Icons -->
+    <link href="{{asset('UI/assets/v1/css/nucleo-icons.css')}}" rel="stylesheet" />
+    <link href="{{asset('UI/assets/v1/css/nucleo-svg.css')}}" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/42d5adcbca.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+    <!-- CSS Files -->
+    <link
+      id="pagestyle"
+      href="{{asset('UI/assets/v1/css/material-dashboard.css?v=3.1.0')}}"
+      rel="stylesheet"
+    />
+    <!-- Nepcha Analytics (nepcha.com) -->
+    <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+    <script
+      defer
+      data-site="YOUR_DOMAIN_HERE"
+      src="https://api.nepcha.com/js/nepcha-analytics.js"
+    ></script>

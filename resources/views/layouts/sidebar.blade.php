@@ -1,32 +1,29 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<aside
+    class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
+    id="sidenav-main">
+    <x-sidebar.header />
 
-    <!-- Sidebar - Brand -->
-    <x-sidebar.header/>
+    <hr class="horizontal light mt-0 mb-2" />
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+            <x-sidebar.item href="{{ route('dashboard') }}" icon="dashboard" label="Dashboard" />
+            <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="Users" />
+            {{-- <x-sidebar.item href="./pages/tables.html" icon="table_view" label="Tables" />
+            <x-sidebar.item href="./pages/billing.html" icon="receipt_long" label="Billing" />
+            <x-sidebar.item href="./pages/virtual-reality.html" icon="view_in_ar" label="Virtual Reality" />
+            <x-sidebar.item href="./pages/rtl.html" icon="format_textdirection_r_to_l" label="RTL" />
+            <x-sidebar.item href="./pages/notifications.html" icon="notifications" label="Notifications" />
 
-    <!-- Nav Item - Dashboard -->
-    <x-sidebar.item href="{{ route('dashboard') }}" icon="fa-tachometer-alt" label="Dashboard"/>
+            <x-sidebar.delimiter title="Account pages" />
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+            <x-sidebar.item href="./pages/profile.html" icon="person" label="Profile" />
+            <x-sidebar.item href="./pages/sign-in.html" icon="login" label="Sign In" />
+            <x-sidebar.item href="./pages/sign-up.html" icon="assignment" label="Sign Up" /> --}}
 
-    <!-- Heading -->
-    <x-sidebar.title title="Interface"/>
+        </ul>
+    </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <x-sidebar.collaps collapsId="users" collapsLabel="Users">
-        <x-slot name="collapsItems">
-            <x-sidebar.collaps-item href="{{route('users.index')}}" label="All Users"/>
-            <x-sidebar.collaps-item href="{{route('users.create')}}" label="Add User"/>
-        </x-slot>
-    </x-sidebar.collaps>
+    <x-sidebar.footer />
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <x-sidebar.toggle/>
-
-    <!-- Sidebar Message -->
-    <x-sidebar.footer/>
-
-</ul>
+</aside>

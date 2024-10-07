@@ -1,54 +1,56 @@
 @extends('layouts.master')
 
 @section('content')
-<!-- Page Heading -->
-<x-page-header title="Users" >
-    <x-slot name="headerButtons">
-        <x-header-button href="#" label="generate report" icon="fa-download fa-sm text-white-50"/>
-    </x-slot>
-</x-page-header>
+    <x-page-header previousPage="Pages" currentPage="Users" previousPageLink="#">
+        <x-header-button label="New User" />
+    </x-page-header>
 
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Users</h6>
+                        <x-filter />
+                    </div>
+                </div>
 
-            <x-filter/>           
+                <div class="card-body px-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Author
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Function
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Status
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Employed
+                                    </th>
+                                    <th class="text-secondary opacity-7"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @include('pages.users.partials.rows')
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @include('pages.users.partials.rows')
-                </tbody>
-            </table>
+                <x-pagination :models="$models" />
 
-            <x-pagination :models="$models" />
-            
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
-@push('css')
-    <link href="{{asset('UI/assets/v1/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-    <link href="{{asset('UI/assets/v1/css/custom/pagination.css')}}" rel="stylesheet">
-@endpush
-
 @push('js')
-    <!-- Page level plugins -->
-    <script src="{{asset('UI/assets/v1/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('UI/assets/v1/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{asset('UI/assets/v1/js/demo/datatables-demo.js')}}"></script>
-    <script src="{{asset('UI/assets/v1/js/custom/datatable.js')}}"></script>
-    <script src="{{asset('UI/assets/v1/js/custom/filters.js')}}"></script>
-    
+    <script src="{{ asset('UI/assets/v1/js/custom/filters.js') }}"></script>
 @endpush

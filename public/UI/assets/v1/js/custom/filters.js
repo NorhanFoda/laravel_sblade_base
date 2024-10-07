@@ -16,10 +16,11 @@ $('#filter').on('input change', function() {
 });
 $('#filter').submit(function(e) {
     e.preventDefault();
-    getResources(filters);
+    getResources();
 });
 
-function getResources(filters, tableId = 'dataTable') {
+function getResources(page = 1, tableId = 'dataTable') {
+    filters.page = page;
     $.ajax({
         url: window.location.href,
         method: 'GET',
@@ -32,26 +33,28 @@ function getResources(filters, tableId = 'dataTable') {
 }
 
 function updatePagination(totalEntries, currentPage, totalPages) {
-    let limit = filters.limit ?? 10;
-    const paginationWrapper = $('.pagination-wrapper');
-    paginationWrapper.find('.pagination').empty(); // Clear existing pagination links
+    let limit = filters.limit ?? 10; // Set limit based on filters or default to 10
+    const paginationWrapper = $('.pagination'); // Select the pagination element
 
     // Update the "Showing" text
-    paginationWrapper.find('span').text(`Showing ${(currentPage - 1) * limit + 1} to ${Math.min(currentPage * limit, totalEntries)} of ${totalEntries} entries`);
+    const showingText = `Showing ${(currentPage - 1) * limit + 1} to ${Math.min(currentPage * limit, totalEntries)} of ${totalEntries} entries`;
+    paginationWrapper.closest('.card-footer').find('p.text-sm').text(showingText); // Update the text in the card footer
+
+    // Clear existing pagination links
+    paginationWrapper.empty();
 
     // Create pagination links
     if (totalPages > 1) {
         // Previous button
-        const prevButton = $('<li class="page-item">')
-            .append($('<a class="page-link" href="#" aria-label="Previous">&laquo;</a>')
-                .on('click', function(e) {
-                    e.preventDefault();
-                    if (currentPage > 1) {
-                        filters.page = currentPage - 1; // Decrement the page
-                        getResources(filters); // Fetch new data
-                    }
-                }));
-        paginationWrapper.find('.pagination').append(prevButton);
+        if (currentPage > 1) {
+            const prevButton = $('<li class="page-item">')
+                .append($('<a class="page-link" href="#" aria-label="Previous">&laquo;</a>')
+                    .on('click', function(e) {
+                        e.preventDefault();
+                        getResources(currentPage - 1); // Fetch previous page data
+                    }));
+            paginationWrapper.append(prevButton);
+        }
 
         // Page number links
         for (let page = 1; page <= totalPages; page++) {
@@ -60,29 +63,28 @@ function updatePagination(totalEntries, currentPage, totalPages) {
                 .append($('<a class="page-link" href="#">' + page + '</a>')
                     .on('click', function(e) {
                         e.preventDefault();
-                        filters.page = page; // Set the current page
-                        getResources(filters); // Fetch new data
+                        getResources(page); // Fetch data for the selected page
                     }));
-            paginationWrapper.find('.pagination').append(pageItem);
+            paginationWrapper.append(pageItem);
         }
 
         // Next button
-        const nextButton = $('<li class="page-item">')
-            .append($('<a class="page-link" href="#" aria-label="Next">&raquo;</a>')
-                .on('click', function(e) {
-                    e.preventDefault();
-                    if (currentPage < totalPages) {
-                        filters.page = currentPage + 1; // Increment the page
-                        getResources(filters); // Fetch new data
-                    }
-                }));
-        paginationWrapper.find('.pagination').append(nextButton);
+        if (currentPage < totalPages) {
+            const nextButton = $('<li class="page-item">')
+                .append($('<a class="page-link" href="#" aria-label="Next">&raquo;</a>')
+                    .on('click', function(e) {
+                        e.preventDefault();
+                        getResources(currentPage + 1); // Fetch next page data
+                    }));
+            paginationWrapper.append(nextButton);
+        }
     }
 }
 
 
+
 function updatePage(page) {
     filters.page = page;  // Update the page in filters
-    getResources(filters); // Fetch data for the new page
+    getResources(); // Fetch data for the new page
 }
 
