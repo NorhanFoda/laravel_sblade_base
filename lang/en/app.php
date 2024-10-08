@@ -2,12 +2,18 @@
 return [
     'sidebar' => [
         'dashboard' => 'Dashboard',
-        'users' => 'Users'
+        'users' => 'Users',
+        'roles_and_permissions' => 'Roles and Permissions'
     ],
     'table' => [
         'actions' => [
             'delete' => 'Delete',
             'edit' => 'Edit ',
+        ],
+        'header' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'role' => 'Role'
         ]
     ],
     'confirm' => [
@@ -20,7 +26,8 @@ return [
         'header' => 'Your attention is required'
     ],
     'titles' => [
-        'signin' => 'Sign In'
+        'signin' => 'Sign In',
+        'roles' => 'Roles'
     ],
     'inputs' => [
         'email' => 'Email',

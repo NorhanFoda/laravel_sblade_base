@@ -194,7 +194,7 @@ class BaseController extends Controller
      * @param $model
      * @return JsonResponse|View
      */
-    protected function respondWithModel($model, $message = []): JsonResponse|View
+    protected function respondWithModel($model, $message = [], $data = []): JsonResponse|View
     {
         $resource = new $this->modelResource($model->load($this->relations));
 
@@ -202,7 +202,7 @@ class BaseController extends Controller
             return $this->respond($resource, [], $message);
         }
 
-        return $this->renderView($this->viewName, compact('resource', 'message'));
+        return $this->renderView($this->viewName, compact('resource', 'message', 'data'));
     }
 
     /**

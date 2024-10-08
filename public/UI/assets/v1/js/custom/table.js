@@ -1,13 +1,13 @@
 // Delete form
 $('[id^=confirmDelete-]').on('click', function() {
-    var id = $(this).attr('id').split('-')[1];
-    var form = $('#deleteForm-' + id);
-    var actionUrl = form.attr('action');
+    let id = $(this).attr('id').split('-')[1];
+    let deleteForm = $('#deleteForm-' + id);
+    let actionUrl = deleteForm.attr('action');
 
     $.ajax({
         url: actionUrl,
         type: 'POST',
-        data: form.serialize(),
+        data: deleteForm.serialize(),
         success: function(response) {
             $('#modal-notification-' + id).modal('hide'); 
             toastr.success(response.message);

@@ -23,7 +23,7 @@ class RoleResource extends BaseResource
 
         $this->full = [
             'can_be_deleted' => $this->can_be_deleted,
-            'created_at' => $this->created_at->format(config('app.date_format')),
+            'created_at' => $this->created_at?->format(config('app.datetime_format')),
         ];
 
         $this->relations = [

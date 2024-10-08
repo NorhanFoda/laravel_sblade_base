@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Web;
+namespace App\Http\Controllers\V1\Web;
 
-use App\Http\Controllers\Api\V1\BaseApiController;
+use App\Http\Controllers\V1\BaseController;
 use App\Http\Resources\PermissionResource;
 use App\Models\Permission;
 use App\Repositories\Contracts\PermissionContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 
-class PermissionController extends BaseApiController
+class PermissionController extends BaseController
 {
     /**
      * PermissionController constructor.

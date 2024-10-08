@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
-    <x-page-header previousPage="Pages" currentPage="Users" previousPageLink="#">
-        <x-header-button label="New User" :href="route('users.create')" />
+    <x-page-header previousPage="Pages" currentPage="Roles" previousPageLink="#">
+        <x-header-button label="New Role" :href="route('roles.create')" />
     </x-page-header>
 
     <div class="row">
@@ -10,7 +10,7 @@
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Users</h6>
+                        <h6 class="text-white text-capitalize ps-3">{{ __('app.titles.roles') }}</h6>
                         <x-filter />
                     </div>
                 </div>
@@ -21,24 +21,16 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center">
-                                        Author
+                                        {{ __('app.table.header.id') }}
                                     </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center ps-2">
-                                        Function
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder text-center">
-                                        Status
-                                    </th>
-                                    <th
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder text-center">
-                                        Employed
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2 text-center">
+                                        {{ __('app.table.header.role') }}
                                     </th>
                                     <th class="text-secondary text-center"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @include('pages.users.partials.rows')
+                                @include('pages.roles.partials.rows')
                             </tbody>
                         </table>
                     </div>

@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Web;
+namespace App\Http\Controllers\V1\Web;
 
-use App\Http\Controllers\Api\V1\BaseApiController;
-use App\Http\Requests\RoleRequest;
-use App\Http\Resources\RoleResource;
+use Exception;
 use App\Models\Role;
 use App\Models\User;
-use App\Repositories\Contracts\RoleContract;
-use Exception;
+use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\RoleRequest;
+use App\Http\Resources\RoleResource;
+use App\Http\Controllers\V1\BaseController;
+use App\Repositories\Contracts\PermissionContract;
+use App\Repositories\Contracts\RoleContract;
 
-class RoleController extends BaseApiController
+class RoleController extends BaseController
 {
 
     /**
@@ -20,7 +22,20 @@ class RoleController extends BaseApiController
      */
     public function __construct(RoleContract $contract)
     {
-        parent::__construct($contract, RoleResource::class);
+        $this->viewName = 'pages.roles.index';
+        $this->partialViewName = 'pages.users.partials.rows';
+        parent::__construct($contract, RoleResource::class, $this->viewName, $this->partialViewName);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return View
+     */
+    public function create(): View
+    {
+        $this->viewName = 'pages.roles.form';
+        return $this->respondWithModel(new Role, [], ['permissions' => app(PermissionContract::class)->search([], [], ['page' => 0, 'limit' => 0, 'groupBy' => 'model'])]);
     }
 
     /**
@@ -29,6 +44,7 @@ class RoleController extends BaseApiController
      */
     public function store(RoleRequest $request): JsonResponse
     {
+        dd('store');
         try {
             $role = $this->contract->create($request->validated());
             return $this->respondWithModel($role);

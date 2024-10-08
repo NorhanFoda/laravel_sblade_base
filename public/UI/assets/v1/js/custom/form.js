@@ -1,5 +1,5 @@
 let form = {};
-$('#submit').click(function(e) {
+$(document).on('click', '#submit', function(e) {
     e.preventDefault();
     collectFormData();
     submit();
@@ -51,7 +51,7 @@ function submit() {
 }
 
 // Clear validation errors
-$('#form').on('input change', function(){
+$(document).on('input change', '#form', function(){
     $('#form :input').each(function() {
         let input = $(this);
         let name = input.attr('name');

@@ -113,10 +113,10 @@
                 @endguest
                 @auth
                     <li class="nav-item d-flex align-items-center">
-                        <form class="text-start" id="form" action="{{ route('logout') }}"
+                        <form class="text-start" id="logoutForm" action="{{ route('logout') }}"
                             data-redirect="{{ route('login.form') }}">
                             @csrf
-                            <x-form.submit shape="href" :label="__('app.btns.signout')">
+                            <x-form.submit shape="href" :label="__('app.btns.signout')" id="submitLogout">
                                 <x-slot name="icon">
                                     <i class='fa fa-user me-sm-1'></i>
                                 </x-slot>
@@ -129,5 +129,5 @@
     </div>
 </nav>
 @push('js')
-    <script src="{{ asset('UI/assets/v1/js/custom/form.js') }}"></script>
+    <script src="{{ asset('UI/assets/v1/js/custom/logout.js') }}"></script>
 @endpush

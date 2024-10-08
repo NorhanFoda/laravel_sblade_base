@@ -7,8 +7,14 @@
 
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <x-sidebar.item href="{{ route('home') }}" icon="dashboard" label="{{__('app.sidebar.dashboard')}}" />
-            <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="{{__('app.sidebar.users')}}" />
+            <x-sidebar.item href="{{ route('home') }}" icon="dashboard" label="{{ __('app.sidebar.dashboard') }}" />
+            @canany(['create-user', 'read-user', 'update-user', 'delete-user'], 'sanctum')
+                <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="{{ __('app.sidebar.users') }}" />
+            @endcanany
+            @canany(['create-role', 'read-role', 'update-role', 'delete-role'], 'sanctum')
+                <x-sidebar.item href="{{ route('roles.index') }}" icon="person"
+                    label="{{ __('app.sidebar.roles_and_permissions') }}" />
+            @endcanany
             {{-- <x-sidebar.item href="./pages/tables.html" icon="table_view" label="Tables" />
             <x-sidebar.item href="./pages/billing.html" icon="receipt_long" label="Billing" />
             <x-sidebar.item href="./pages/virtual-reality.html" icon="view_in_ar" label="Virtual Reality" />
