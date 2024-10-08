@@ -74,9 +74,9 @@ trait BaseResponseTrait
         }
 
         // Check if the request expects a JSON response or a view
-        return request()->wantsJson() 
+        return request()->wantsJson() || request()->ajax()
             ? $this->setStatusCode(Response::HTTP_OK)->respondWithArray($response) 
-            : $this->respondWithView('your.success.view.name', $response); // Specify your success view name
+            : $this->respondWithView($this->viewName, $response); // Specify your success view name
     }
 
     /**

@@ -27,6 +27,7 @@ function collectFormData() {
     });
 }
 
+// Store and Edit form
 function submit() {
     $.ajax({
         url:  $('#form').attr('action'),

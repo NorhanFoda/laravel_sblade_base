@@ -1,5 +1,6 @@
 <!--   Core JS Files   -->
 <script src="{{asset('UI/assets/v1/js/core/popper.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('UI/assets/v1/js/core/bootstrap.min.js')}}"></script>
 <script src="{{asset('UI/assets/v1/js/plugins/perfect-scrollbar.min.js')}}"></script>
 <script src="{{asset('UI/assets/v1/js/plugins/smooth-scrollbar.min.js')}}"></script>
@@ -16,7 +17,14 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="{{asset('UI/assets/v1/js/material-dashboard.min.js?v=3.1.0')}}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 {{-- toaster --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script type="text/javascript">
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+</script>

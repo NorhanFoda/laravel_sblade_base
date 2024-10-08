@@ -101,9 +101,10 @@ class UserController extends BaseController implements HasMiddleware
      * @param User $user
      * @return JsonResponse
      */
-    public function destroy(User $user): JsonResponse
+    public function destroy(User $user): JsonResponse|View
     {
         $this->contract->remove($user);
+        $this->viewName = 'pages.users.index';
         return $this->respondWithSuccess('User deleted successfully');
     }
 

@@ -53,4 +53,5 @@
 
 @push('js')
     <script src="{{ asset('UI/assets/v1/js/custom/filters.js') }}"></script>
+    <script src="{{ asset('UI/assets/v1/js/custom/table.js') }}"></script>
 @endpush
