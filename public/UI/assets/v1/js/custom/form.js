@@ -1,15 +1,5 @@
 let form = {};
-$('#form').on('input change', function(){
-    $('#form :input').each(function() {
-        let input = $(this);
-        let name = input.attr('name');
-        if (name) {
-            $(`.validation-error[data-name="${name}"]`).html('');
-        }
-    });
-});
-
-$('button[type="submit"]').click(function(e) {
+$('#submit').click(function(e) {
     e.preventDefault();
     collectFormData();
     submit();
@@ -20,11 +10,13 @@ function collectFormData() {
         let input = $(this);
         let name = input.attr('name');
         if (name) {
-            if(input.val() !== '') {
+            if (input.is(':checkbox')) {
+                form[name] = input.is(':checked') ? '1' : '0';
+            } else if (input.val() !== '') {
                 form[name] = input.val();
             }
         }
-    });
+    });    
 }
 
 // Store and Edit form
@@ -34,12 +26,15 @@ function submit() {
         method: 'POST',
         data: form,
         success: function(response) {
-            toastr.success(response.message?.message);
+            if (response.message?.message) {
+                toastr.success(response.message?.message);
+            }
             setTimeout(function() {
                 window.location.href = $('#form').data('redirect');
-            }, 1500);
+            }, 1000);
         },
         error: function(error) {
+            // console.log(error);
             toastr.error(JSON.parse(error.responseText)?.message);
             if (error.status === 422) {
                 let errors = error.responseJSON.errors;
@@ -54,3 +49,14 @@ function submit() {
         }
     });
 }
+
+// Clear validation errors
+$('#form').on('input change', function(){
+    $('#form :input').each(function() {
+        let input = $(this);
+        let name = input.attr('name');
+        if (name) {
+            $(`.validation-error[data-name="${name}"]`).html('');
+        }
+    });
+});

@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Web\Auth;
+namespace App\Http\Controllers\V1\Web\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Traits\BaseApiResponseTrait;
-use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Traits\BaseResponseTrait;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
-    use BaseApiResponseTrait;
+    use BaseResponseTrait;
 
     /**
      * Handle the incoming request.
@@ -18,9 +19,12 @@ class LogoutController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function __invoke(Request $request): JsonResponse
+
+    private $viewName = 'auth.login';
+    public function __invoke(Request $request): JsonResponse|View
     {
         Auth::guard('web')->logout();
+        redirect()->route('login.form');
         return $this->respondWithSuccess();
     }
 }

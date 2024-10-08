@@ -102,14 +102,32 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item d-flex align-items-center">
-                    <a href="./pages/sign-in.html" class="nav-link text-body font-weight-bold px-0">
-                        <i class="fa fa-user me-sm-1"></i>
+                @guest
+                    <li class="nav-item d-flex align-items-center">
+                        <a href="{{ route('login.form') }}" class="nav-link text-body font-weight-bold px-0">
+                            <i class="fa fa-user me-sm-1"></i>
 
-                        <span class="d-sm-inline d-none">Sign In</span>
-                    </a>
-                </li>
+                            <span class="d-sm-inline d-none">{{ __('app.titles.signin') }}</span>
+                        </a>
+                    </li>
+                @endguest
+                @auth
+                    <li class="nav-item d-flex align-items-center">
+                        <form class="text-start" id="form" action="{{ route('logout') }}"
+                            data-redirect="{{ route('login.form') }}">
+                            @csrf
+                            <x-form.submit shape="href" :label="__('app.btns.signout')">
+                                <x-slot name="icon">
+                                    <i class='fa fa-user me-sm-1'></i>
+                                </x-slot>
+                            </x-form.submit>
+                        </form>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>
 </nav>
+@push('js')
+    <script src="{{ asset('UI/assets/v1/js/custom/form.js') }}"></script>
+@endpush
