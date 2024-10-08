@@ -15,6 +15,7 @@
             min={{ $min ?? '' }}
             max={{ $max ?? '' }}
             placeholder="{{ $placeholder ?? '' }}"
+            value="{{ $value ?? '' }}"
             class="form-control">
     </div>
     <x-form.validation-error :name="!empty($errorName) ? $errorName : $name" :errors="$errors"/>

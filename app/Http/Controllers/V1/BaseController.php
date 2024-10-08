@@ -198,7 +198,6 @@ class BaseController extends Controller
     {
         $resource = new $this->modelResource($model->load($this->relations));
 
-        // Check if the request expects a JSON response or a view
         if (request()->wantsJson() || request()->ajax()) {
             return $this->respond($resource, [], $message);
         }

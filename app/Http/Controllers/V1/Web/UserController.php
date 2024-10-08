@@ -78,7 +78,8 @@ class UserController extends BaseController implements HasMiddleware
     public function edit(User $user)
     {
         $this->viewName = 'pages.users.form';
-        return $this->respondWithModel($user);    }
+        return $this->respondWithModel($user);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -91,7 +92,7 @@ class UserController extends BaseController implements HasMiddleware
     {
         $data = $request->validated();
         $user = $this->contract->update($user, $data);
-        return $this->respondWithModel($user);
+        return $this->respondWithModel($user, ['message' => __('messages.action_completed_successfully')]);
     }
 
     /**
