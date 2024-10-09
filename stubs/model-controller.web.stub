@@ -15,6 +15,14 @@ use Illuminate\Http\RedirectResponse;
 class {{modelName}}Controller extends BaseWebController
 {
     /**
+     * @return void
+     */
+    public static function middleware()
+    {
+        self::permissionMiddlewares('{{modelName}}');
+    }
+
+    /**
      * {{modelName}}Controller constructor.
      * @param {{modelName}}Contract $contract
      */
@@ -56,7 +64,7 @@ class {{modelName}}Controller extends BaseWebController
     public function store({{modelName}}Request $request): RedirectResponse
     {
         $this->contract->create($request->validated());
-        return $this->redirectBack()->with('success', __('messages.actions_messages.create_success'));
+        return $this->redirectBack('success', __('messages.actions_messages.create_success'));
     }
 
     /**
@@ -94,7 +102,7 @@ class {{modelName}}Controller extends BaseWebController
     public function update({{modelName}}Request $request, {{modelName}} ${{modelObject}}): RedirectResponse
     {
         $this->contract->update(${{modelObject}}, $request->validated());
-        return $this->redirectBack()->with('success', __('messages.actions_messages.update_success'));
+        return $this->redirectBack('success', __('messages.actions_messages.update_success'));
     }
 
     /**
@@ -107,7 +115,7 @@ class {{modelName}}Controller extends BaseWebController
     public function destroy({{modelName}} ${{modelObject}}): RedirectResponse
     {
        $this->contract->remove(${{modelObject}});
-       return $this->redirectBack()->with('success', __('messages.actions_messages.delete_success'));
+       return $this->redirectBack('success', __('messages.actions_messages.delete_success'));
     }
 
     /**
@@ -118,6 +126,6 @@ class {{modelName}}Controller extends BaseWebController
     public function changeActivation({{modelName}} ${{modelObject}}): RedirectResponse
     {
         $this->contract->toggleField(${{modelObject}}, 'is_active');
-        return $this->redirectBack()->with('success', __('messages.actions_messages.update_success'));
+        return $this->redirectBack('success', __('messages.actions_messages.update_success'));
     }
 }

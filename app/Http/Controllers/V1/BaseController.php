@@ -51,7 +51,6 @@ class BaseController extends Controller
         $order = request('order', []);
         $filters = request()->all();
         
-        // dd($filters, $this->relations);
         $data = array_merge($filters, ['order' => $order, 'limit' => $limit, 'page' => $page]);
         $models = $this->contract->search($filters, $this->relations, $data);
 
@@ -238,10 +237,10 @@ class BaseController extends Controller
             $middlewares['r'] = new Middleware('permission:read-' . $model, only: ['index', 'show']);
         }
         if (in_array('c', $applies) || in_array('*', $applies)) {
-            $middlewares['c'] = new Middleware('permission:create-' . $model, only: ['store']);
+            $middlewares['c'] = new Middleware('permission:create-' . $model, only: ['create', 'store']);
         }
         if (in_array('u', $applies) || in_array('*', $applies)) {
-            $middlewares['u'] = new Middleware('permission:update-' . $model, only: ['update']);
+            $middlewares['u'] = new Middleware('permission:update-' . $model, only: ['edit', 'update']);
         }
         if (in_array('d', $applies) || in_array('*', $applies)) {
             $middlewares['d'] = new Middleware('permission:delete-' . $model, only: ['destroy']);
