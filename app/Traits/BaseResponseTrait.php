@@ -121,7 +121,7 @@ trait BaseResponseTrait
         // Check if the request expects a JSON response or a view
         return request()->wantsJson() 
             ? $this->setStatusCode($statusCode)->respondWithArray($response) 
-            : $this->respondWithView('your.error.view.name', $response); // Specify your error view name
+            : $this->respondWithView($this->viewName, $response); // Specify your error view name
     }
 
     /**

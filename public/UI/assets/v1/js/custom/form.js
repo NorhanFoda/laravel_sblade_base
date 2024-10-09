@@ -11,12 +11,26 @@ function collectFormData() {
         let name = input.attr('name');
         if (name) {
             if (input.is(':checkbox')) {
-                form[name] = input.is(':checked') ? '1' : '0';
+                collectCheckboxValues(input, name);
             } else if (input.val() !== '') {
                 form[name] = input.val();
             }
         }
-    });    
+    }); 
+}
+
+function collectCheckboxValues(input, name) {
+    let isArray = input.data('isarray');
+    if (isArray) {
+        if (!form[name]) {
+            form[name] = [];
+        }
+        if (input.is(':checked')) {
+            form[name].push(input.val());
+        }
+    } else {
+        form[name] = input.is(':checked') ? '1' : '0';
+    }
 }
 
 // Store and Edit form

@@ -17,13 +17,21 @@ class RoleController extends BaseController
 {
 
     /**
+     * @return void
+     */
+    public static function middleware()
+    {
+        self::permissionMiddlewares('Role');
+    }
+
+    /**
      * RoleController constructor.
      * @param RoleContract $contract
      */
     public function __construct(RoleContract $contract)
     {
         $this->viewName = 'pages.roles.index';
-        $this->partialViewName = 'pages.users.partials.rows';
+        $this->partialViewName = 'pages.roles.partials.rows';
         parent::__construct($contract, RoleResource::class, $this->viewName, $this->partialViewName);
     }
 
@@ -40,14 +48,13 @@ class RoleController extends BaseController
 
     /**
      * @param RoleRequest $request
-     * @return JsonResponse
+     * @return JsonResponse|View
      */
-    public function store(RoleRequest $request): JsonResponse
+    public function store(RoleRequest $request): JsonResponse|View
     {
-        dd('store');
         try {
             $role = $this->contract->create($request->validated());
-            return $this->respondWithModel($role);
+            return $this->respondWithModel($role, ['message' => __('messages.action_completed_successfully')]);
         } catch (Exception $exception) {
             return $this->respondWithError($exception->getMessage());
         }

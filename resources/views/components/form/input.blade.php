@@ -17,4 +17,6 @@
         value="{{ $value ?? '' }}"
         class="form-control {{$inputClass ?? ''}}">
 </div>
-<x-form.validation-error :name="!empty($errorName) ? $errorName : $name" :errors="$errors"/>
+@if (($showError ?? true) === true)
+    <x-form.validation-error :name="!empty($errorName) ? $errorName : $name" :errors="$errors" />
+@endif

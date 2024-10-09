@@ -52,8 +52,7 @@ class UserController extends BaseController implements HasMiddleware
      */
     public function store(UserRequest $request): JsonResponse
     {
-        $data = $request->validated();
-        $user = $this->contract->create($data);
+        $user = $this->contract->create($request->validated());
         return $this->respondWithModel($user, ['message' => __('messages.action_completed_successfully')]);
     }
 

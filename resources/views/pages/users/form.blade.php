@@ -10,7 +10,7 @@
                         action="{{ $model['resource']?->id ? route('users.update', ['user' => $model['resource']]) : route('users.store') }}"
                         data-redirect="{{ route('users.index') }}">
                         @csrf
-                        @if (isset($model['resource']))
+                        @if ($model['resource']?->id)
                             @method('PUT')
                         @endif
                         <div class="row">
@@ -36,5 +36,5 @@
     </div>
 @endsection
 @push('js')
-    <script src="{{ asset('UI/assets/v1/js/custom/logout.js') }}"></script>
+    <script src="{{ asset('UI/assets/v1/js/custom/form.js') }}"></script>
 @endpush

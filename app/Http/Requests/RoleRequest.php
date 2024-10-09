@@ -35,7 +35,6 @@ class RoleRequest extends FormRequest
      */
     public function rules(): array
     {
-        dd($this->all());
         return [
             'name' => ['required', 'string', 'min:2', 'max:190',
                 Rule::unique('roles')->ignore($this->id),
