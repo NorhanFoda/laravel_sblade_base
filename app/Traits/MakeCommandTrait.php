@@ -82,16 +82,19 @@ trait MakeCommandTrait
             '{{modelNamePlural}}',
             '{{namespace}}',
             '{{modelObject}}',
-            '{{folderName}}'
+            '{{folderName}}',
+            '{{bladeNamespace}}'
         ];
         $namespace = mb_substr($namespace, -1) == '/' ? substr($namespace, 0, -1) : $namespace;
+        $bladeNamespace = $namespace ? str_replace('/', '.', $namespace) : '';
         $replace = [
             $modelName,
             Str::lower($modelName),
             Str::plural(Str::lower($modelName)),
             ($namespace) ? '\\' . str_replace('/', '\\', $namespace) : '',
             Str::camel($modelName),
-            Str::remove('/', Str::lower($folderName))
+            Str::remove('/', Str::lower($folderName)),
+            $bladeNamespace
         ];
         return str_replace($search, $replace, $template);
     }

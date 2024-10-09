@@ -120,4 +120,30 @@ class BaseWebController extends Controller
     {
         $this->relations = explode(',', $embed);
     }
+
+    /**
+     * model middlewares for permissions
+     *
+     * @param string $model
+     * @param string $applies = '*' , r,c,u,d
+     * @return array
+     */
+    public static function permissionMiddlewares(string $model, string $applies = '*'): array
+    {
+        $middlewares = [];
+        $applies = explode(',', $applies);
+        if (in_array('r', $applies) || in_array('*', $applies)) {
+            $middlewares['r'] = new Middleware('permission:read-' . $model, only: ['index', 'show']);
+        }
+        if (in_array('c', $applies) || in_array('*', $applies)) {
+            $middlewares['c'] = new Middleware('permission:create-' . $model, only: ['create', 'store']);
+        }
+        if (in_array('u', $applies) || in_array('*', $applies)) {
+            $middlewares['u'] = new Middleware('permission:update-' . $model, only: ['edit', 'update']);
+        }
+        if (in_array('d', $applies) || in_array('*', $applies)) {
+            $middlewares['d'] = new Middleware('permission:delete-' . $model, only: ['destroy']);
+        }
+        return $middlewares;
+    }
 }

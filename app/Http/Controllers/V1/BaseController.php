@@ -237,10 +237,10 @@ class BaseController extends Controller
             $middlewares['r'] = new Middleware('permission:read-' . $model, only: ['index', 'show']);
         }
         if (in_array('c', $applies) || in_array('*', $applies)) {
-            $middlewares['c'] = new Middleware('permission:create-' . $model, only: ['create', 'store']);
+            $middlewares['c'] = new Middleware('permission:create-' . $model, only: ['store']);
         }
         if (in_array('u', $applies) || in_array('*', $applies)) {
-            $middlewares['u'] = new Middleware('permission:update-' . $model, only: ['edit', 'update']);
+            $middlewares['u'] = new Middleware('permission:update-' . $model, only: ['update']);
         }
         if (in_array('d', $applies) || in_array('*', $applies)) {
             $middlewares['d'] = new Middleware('permission:delete-' . $model, only: ['destroy']);

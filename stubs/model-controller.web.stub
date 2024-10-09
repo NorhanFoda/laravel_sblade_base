@@ -29,7 +29,7 @@ class {{modelName}}Controller extends BaseWebController
     private string $folderName;
     public function __construct({{modelName}}Contract $contract)
     {
-        $this->folderName = '{{namespace}}.{{folderName}}';
+        $this->folderName = '{{bladeNamespace}}.{{folderName}}';
         parent::__construct($contract, 'dashboard');
     }
     /**
