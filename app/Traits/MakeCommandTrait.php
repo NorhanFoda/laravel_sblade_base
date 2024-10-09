@@ -48,37 +48,14 @@ trait MakeCommandTrait
         return $appBase . $repositoriesNamespace;
     }
 
-    public function getVueResourcesPath(): string
-    {
-        $ds = $this->ds;
-        $appBase = base_path() . $ds;
-        $resourcesPath = 'resources' . $ds . 'app' . $ds . 'views' . $ds;
-        return $appBase . $resourcesPath;
-    }
-
-    public function getVueCompositionsPath(): string
-    {
-        $ds = $this->ds;
-        $appBase = base_path() . $ds;
-        $compositionsPath = 'resources' . $ds . 'app' . $ds . 'api' . $ds;
-        return $appBase . $compositionsPath;
-    }
-
-    public function getVueRoutePath(): string
-    {
-        $ds = $this->ds;
-        $appBase = base_path() . $ds;
-        $compositionsPath = 'resources' . $ds . 'app' . $ds . 'router' . $ds . 'routes' . $ds;
-        return $appBase . $compositionsPath;
-    }
 
     public function getNamespace($namespace = null): string
     {
         if (!is_null($namespace)) {
             return  $this->ds . str_replace('/', $this->ds, $namespace) . $this->ds;
-        }else{
-            return "";
         }
+
+        return "";
     }
 
     public function getRequestPath(): string
