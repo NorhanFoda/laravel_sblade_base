@@ -30,15 +30,12 @@ class MakeRepositoryCommand extends Command
      */
     protected $description = 'it takes modelName required, namespace
     & api are optional params for web / api controllers
-    & requests and vue js and routes';
+    & requests and routes';
 
     protected bool $api = false;
     protected bool $web = false;
     protected bool $mobile = false;
-    protected bool $vue = false;
-    protected string $vueFormType = self::FORM_TYPE_PAGE;
     protected bool $createRoute = true;
-    protected bool $createVueRoute = true;
     protected string $modelName;
     protected string $modelObject;
     protected string $namespace;
@@ -46,9 +43,6 @@ class MakeRepositoryCommand extends Command
     protected const APP_TYPE_API = 'api';
     protected const APP_TYPE_WEB = 'web';
     protected const APP_TYPE_MOBILE = 'mobile';
-
-    protected const FORM_TYPE_MODAL = 'modal';
-    protected const FORM_TYPE_PAGE = 'page';
 
     /**
      * Execute the console command.
@@ -85,9 +79,7 @@ class MakeRepositoryCommand extends Command
             $this->call('make:route', ['modelName' => $this->modelName,
                 '--type' => 'mobile', '--namespace' => $this->namespace]);
         }
-        if($this->vue) {
-            $this->createVueModule();
-        }
+
         return CommandAlias::SUCCESS;
     }
 
@@ -105,7 +97,7 @@ class MakeRepositoryCommand extends Command
         $this->namespace = ucfirst(text(
             label: 'Enter namespace',
         ));
-        // get app type
+        // get an app type
         $appType = multiselect(
             label: 'Select app type?',
             options: [
@@ -119,47 +111,12 @@ class MakeRepositoryCommand extends Command
         $this->api = in_array(self::APP_TYPE_API, $appType);
         $this->web = in_array(self::APP_TYPE_WEB, $appType);
         $this->mobile = in_array(self::APP_TYPE_MOBILE, $appType);
-        // ask to create vue js pages
-        $this->vue = confirm(
-            label: 'Create vue js components and composition file?',
-            required: true
-        );
-        // ask to create vue js form type
-        if ($this->vue) {
-            $this->vueFormType = select(
-                label: 'Select form type?',
-                options: [
-                    self::FORM_TYPE_MODAL => 'Form In Modal',
-                    self::FORM_TYPE_PAGE => 'Form in Separated Page',
-                ],
-                default: self::FORM_TYPE_PAGE,
-                required: true
-            );
-        }
+
         // ask to create routes
         $this->createRoute = confirm(
             label: 'Create the route for you?',
             default: true,
             required: true
         );
-        // ask to create vue js routes
-        if ($this->vue) {
-            $this->createVueRoute = confirm(
-                label: 'Create vue js routes for you?',
-                default: true,
-                required: true
-            );
-        }
     }
-
-    public function createVueModule(): void
-    {
-        $modelName = $this->modelName;
-        $this->call('make:vue-index-component', ['modelName' => $modelName, '--type' => $this->vueFormType]);
-        $this->call('make:vue-form-component', ['modelName' => $modelName , '--type' => $this->vueFormType]);
-        $this->call('make:vue-view-component', ['modelName' => $modelName]);
-        $this->call('make:vue-http-api', ['modelName' => $modelName]);
-        $this->call('make:vue-route', ['modelName' => $modelName , '--type' => $this->vueFormType]);
-    }
-
 }
