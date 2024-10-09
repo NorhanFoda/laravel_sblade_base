@@ -4,6 +4,7 @@ namespace App\Console\Commands\MakeCommands;
 
 use App\Traits\MakeCommandTrait;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class MakeModelControllerCommand extends Command
 {
@@ -31,9 +32,10 @@ class MakeModelControllerCommand extends Command
         $modelName = $this->argument('modelName');
         $type = $this->option('type');
         $namespace = $this->option('namespace');
+        $folderName = Str::plural($modelName);
         $file = base_path($type == 'web' ? 'stubs/model-controller.web.stub' : 'stubs/model-controller.api.stub');
-        $template =  file_get_contents($file);
-        $templateClass = $this->replaceTemplateContent($template, $modelName, $namespace);
+        $template = file_get_contents($file);
+        $templateClass = $this->replaceTemplateContent($template, $modelName, $namespace, $folderName);
         $directory = $this->getControllerPath($type, $namespace);
         $this->makeDirectory($directory);
         $fileName = $modelName . 'Controller' . '.php';

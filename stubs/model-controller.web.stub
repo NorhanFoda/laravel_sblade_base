@@ -18,11 +18,12 @@ class {{modelName}}Controller extends BaseWebController
      * {{modelName}}Controller constructor.
      * @param {{modelName}}Contract $contract
      */
+    private string $folderName;
     public function __construct({{modelName}}Contract $contract)
     {
+        $this->folderName = '{{namespace}}.{{folderName}}';
         parent::__construct($contract, 'dashboard');
     }
-
     /**
      * Display a listing of the resource.
      *

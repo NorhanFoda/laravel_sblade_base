@@ -18,6 +18,7 @@ trait MakeCommandTrait
     {
         return file_get_contents(base_path('stubs/' . $name . '.stub'));
     }
+
     public function getAppPath($path): string
     {
         $ds = $this->ds;
@@ -26,6 +27,7 @@ trait MakeCommandTrait
         $namespace = $path . $ds;
         return $appBase . $namespace;
     }
+
     public function makeDirectory($directory): ?bool
     {
         if (!is_dir($directory)) {
@@ -37,7 +39,7 @@ trait MakeCommandTrait
     public function getBaseControllerNamespace(): string
     {
         $ds = $this->ds;
-        return 'App'. $ds . 'Http' . $ds . 'Controllers' . $ds;
+        return 'App' . $ds . 'Http' . $ds . 'Controllers' . $ds;
     }
 
     public function getRepositoriesPath(): string
@@ -52,7 +54,7 @@ trait MakeCommandTrait
     public function getNamespace($namespace = null): string
     {
         if (!is_null($namespace)) {
-            return  $this->ds . str_replace('/', $this->ds, $namespace) . $this->ds;
+            return $this->ds . str_replace('/', $this->ds, $namespace) . $this->ds;
         }
 
         return "";
@@ -69,25 +71,27 @@ trait MakeCommandTrait
     {
         $ds = $this->ds;
         $resourceNamespace = 'Http' . $ds . 'Resources' . $ds;
-        return app_path() . $ds. $resourceNamespace;
+        return app_path() . $ds . $resourceNamespace;
     }
 
-    public function replaceTemplateContent($template, $modelName, $namespace = null): array|string
+    public function replaceTemplateContent($template, $modelName, $namespace = null, $folderName = null): array|string
     {
         $search = [
             '{{modelName}}',
             '{{modelNameLower}}',
             '{{modelNamePlural}}',
             '{{namespace}}',
-            '{{modelObject}}'
+            '{{modelObject}}',
+            '{{folderName}}'
         ];
-        $namespace = mb_substr($namespace,  -1) == '/' ? substr($namespace, 0, -1) : $namespace;
+        $namespace = mb_substr($namespace, -1) == '/' ? substr($namespace, 0, -1) : $namespace;
         $replace = [
             $modelName,
             Str::lower($modelName),
             Str::plural(Str::lower($modelName)),
             ($namespace) ? '\\' . str_replace('/', '\\', $namespace) : '',
             Str::camel($modelName),
+            Str::remove('/', Str::lower($folderName))
         ];
         return str_replace($search, $replace, $template);
     }
