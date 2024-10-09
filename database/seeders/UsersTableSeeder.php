@@ -18,8 +18,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = Permission::where('guard_name', 'sanctum')->get();
-        $role = Role::findOrCreate('admin', 'sanctum');
+        $permissions = Permission::where('guard_name', 'web')->get();
+        $role = Role::findOrCreate('admin', 'web');
+        $role->update(['can_be_deleted' => 0]);
         $role->givePermissionTo($permissions);
         $user = User::where('email' , 'admin@admin.com')->first();
         if (!$user){

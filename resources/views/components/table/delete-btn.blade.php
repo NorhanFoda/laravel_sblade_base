@@ -1,4 +1,4 @@
-<form method="POST" action="{{ $action ?? '#' }}" id="deleteForm-{{ $id }}" style="display: inline;">
+<form method="POST" action="{{ $action ?? '#' }}" id="deleteForm-{{ $id }}" style="display: inline;" data-redirect="{{ $redirect }}">
     @csrf
     @method('DELETE')
 
@@ -16,6 +16,6 @@
 
 <x-confirm
     :id="$id" 
-    :title="__('messages.delete.title')"
-    :content="__('messages.delete.message')"
+    :title="__('app.confirm.delete.title')"
+    :content="__('app.confirm.delete.message')"
     :formId="'deleteForm-'.$id"/>

@@ -3,8 +3,9 @@
 namespace App\Repositories\SQL;
 
 use App\Models\Role;
-use App\Repositories\Contracts\RoleContract;
 use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Contracts\RoleContract;
 
 class RoleRepository extends BaseRepository implements RoleContract
 {
@@ -37,6 +38,14 @@ class RoleRepository extends BaseRepository implements RoleContract
             array_filter(Arr::flatten(array_values($attributes['role_permissions']))) :[];
         $model->syncPermissions($requestPermissions);
         return $model->refresh();
+    }
+
+    public function roleCanBeDeleted($role): bool
+    {
+        $role->load('users');
+        if (count($role->users) === 0) return true;
+        if ($role->can_be_delete) return true;
+        return false;
     }
 
 }

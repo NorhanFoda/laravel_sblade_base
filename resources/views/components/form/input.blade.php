@@ -15,7 +15,8 @@
         max={{ $max ?? '' }}
         placeholder="{{ $placeholder ?? '' }}"
         value="{{ $value ?? '' }}"
-        class="form-control {{$inputClass ?? ''}}">
+        class="form-control {{$inputClass ?? ''}}"
+        @if(isset($disabled) && $disabled) disabled @endif>
 </div>
 @if (($showError ?? true) === true)
     <x-form.validation-error :name="!empty($errorName) ? $errorName : $name" :errors="$errors" />

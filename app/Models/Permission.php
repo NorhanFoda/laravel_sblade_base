@@ -23,7 +23,7 @@ class Permission extends BasePermission
         self::$abilities = collect(['create', 'read', 'update', 'delete', 'view-all']);
         $modelFiles = Storage::disk('app')->files('Models');
         self::$models = collect($modelFiles)->map(function ($modelFile) {
-            $guardName = 'sanctum';
+            $guardName = 'web';
             $model = str_replace('.php', '', $modelFile);
             $model = str_replace('Models/', '', $model);
             $modelClass = 'App\\Models\\' . str_replace('/', '\\', $model);

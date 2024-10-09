@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\V1\Web;
 
-use App\Http\Controllers\V1\BaseController;
+use Exception;
+use App\Models\User;
+use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
+use App\Http\Controllers\V1\BaseController;
 use App\Repositories\Contracts\UserContract;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
-use Illuminate\View\View;
 
 class UserController extends BaseController implements HasMiddleware
 {
@@ -52,8 +53,12 @@ class UserController extends BaseController implements HasMiddleware
      */
     public function store(UserRequest $request): JsonResponse
     {
-        $user = $this->contract->create($request->validated());
-        return $this->respondWithModel($user, ['message' => __('messages.action_completed_successfully')]);
+        try{
+            $user = $this->contract->create($request->validated());
+            return $this->respondWithModel($user, ['message' => __('messages.action_completed_successfully')]);
+        } catch (Exception $exception) {
+            return $this->respondWithError($exception->getMessage());
+        }
     }
 
     /**
@@ -104,7 +109,7 @@ class UserController extends BaseController implements HasMiddleware
     {
         $this->contract->remove($user);
         $this->viewName = 'pages.users.index';
-        return $this->respondWithSuccess('User deleted successfully');
+        return $this->respondWithSuccess(__('app.messages.deleted_successfully'));
     }
 
     /**

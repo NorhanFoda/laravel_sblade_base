@@ -13,14 +13,21 @@
                             @method('PUT')
                         @endif
                         <div class="row">
-                            <x-form.input class="col-md-12" label="Name" name="name" type="text"
-                                value="{{ $model['resource']?->name }}" :required="true" :errors="$errors" />
-                            <x-roles.permissions-card :permissions="$model['data']['permissions']" />
+                            <x-form.input 
+                                class="col-md-12" 
+                                label="Name" 
+                                name="name" 
+                                type="text"
+                                value="{{ $model['resource']?->name }}" 
+                                :required="true" 
+                                :errors="$errors"
+                                :disabled="request()->routeIs('roles.show')" />
+                            <x-roles.permissions-card :systemPermissions="$model['data']['permissions']" :rolePermissions="$model['resource']?->permissions" />
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
-                    <x-form.submit />
+                    <x-form.submit :disabled="request()->routeIs('roles.show')" />
                 </div>
             </div>
         </div>

@@ -8,10 +8,11 @@ use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\RoleRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\RoleResource;
 use App\Http\Controllers\V1\BaseController;
-use App\Repositories\Contracts\PermissionContract;
 use App\Repositories\Contracts\RoleContract;
+use App\Repositories\Contracts\PermissionContract;
 
 class RoleController extends BaseController
 {
@@ -53,13 +54,29 @@ class RoleController extends BaseController
     public function store(RoleRequest $request): JsonResponse|View
     {
         try {
+            DB::beginTransaction();
             $role = $this->contract->create($request->validated());
-            return $this->respondWithModel($role, ['message' => __('messages.action_completed_successfully')]);
+            DB::commit();
+            return $this->respondWithModel($role, ['message' => __('app.messages.action_completed_successfully')]);
         } catch (Exception $exception) {
+            DB::rollback();
             return $this->respondWithError($exception->getMessage());
         }
     }
 
+
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Role $role
+     * @return view
+     */
+
+    public function edit(Role $role)
+    {
+        $this->viewName = 'pages.roles.form';
+        return $this->respondWithModel($role->load('permissions'), [], ['permissions' => app(PermissionContract::class)->search([], [], ['page' => 0, 'limit' => 0, 'groupBy' => 'model'])]);
+    }
 
     /**
      * Display the specified resource.
@@ -67,10 +84,11 @@ class RoleController extends BaseController
      * @param Role $role
      * @return JsonResponse
      */
-    public function show(Role $role): JsonResponse
+    public function show(Role $role): JsonResponse|View
     {
         try {
-            return $this->respondWithModel($role->load('permissions'));
+            $this->viewName = 'pages.roles.form';
+            return $this->respondWithModel($role->load('permissions'), [], ['permissions' => app(PermissionContract::class)->search([], [], ['page' => 0, 'limit' => 0, 'groupBy' => 'model'])]);
         } catch (Exception $exception) {
             return $this->respondWithError($exception->getMessage());
         }
@@ -89,7 +107,7 @@ class RoleController extends BaseController
             $role = $this->contract->update($role, $request->validated());
             $users_id = $role->users()->pluck('id');
             User::whereIn('id',$users_id)->update(['need_logout'=>1]);
-            return $this->respondWithModel($role,200,['role-id'=>$role->id,'role-update'=>true]);
+            return $this->respondWithModel($role, ['message' => __('app.messages.action_completed_successfully')]);
         } catch (Exception $exception) {
             return $this->respondWithError($exception->getMessage());
         }
@@ -102,13 +120,14 @@ class RoleController extends BaseController
      *
      * @return JsonResponse
      */
-    public function destroy(Role $role): JsonResponse
+    public function destroy(Role $role): JsonResponse|View
     {
         try {
-            if (!$role->can_be_deleted)
-                return $this->respondWithError(__('role can not be deleted'));
+            $this->viewName = 'pages.roles.index';
+            if (!$this->contract->roleCanBeDeleted($role))
+                return $this->respondWithError(__('app.messages.role_can_not_be_deleted'));
             $this->contract->remove($role);
-            return $this->respondWithSuccess(__('role deleted successfully'));
+            return $this->respondWithSuccess(__('app.messages.deleted_successfully'));
         } catch (Exception $exception) {
             return $this->respondWithError($exception->getMessage());
         }

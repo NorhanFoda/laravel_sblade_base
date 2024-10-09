@@ -76,7 +76,7 @@ trait BaseResponseTrait
         // Check if the request expects a JSON response or a view
         return request()->wantsJson() || request()->ajax()
             ? $this->setStatusCode(Response::HTTP_OK)->respondWithArray($response) 
-            : $this->respondWithView($this->viewName, $response); // Specify your success view name
+            : $this->respondWithView($this->viewName, $response);
     }
 
     /**
@@ -88,7 +88,9 @@ trait BaseResponseTrait
      */
     protected function respondWithError($message, int $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse|View
     {
-        return $this->respondWithErrors($message, $statusCode);
+        return request()->wantsJson() || request()->ajax()
+            ? $this->respondWithErrors($message, $statusCode)
+            : $this->respondWithView($this->viewName, $message);
     }
 
     /**
@@ -119,7 +121,7 @@ trait BaseResponseTrait
         }
 
         // Check if the request expects a JSON response or a view
-        return request()->wantsJson() 
+        return request()->wantsJson() || request()->ajax() 
             ? $this->setStatusCode($statusCode)->respondWithArray($response) 
             : $this->respondWithView($this->viewName, $response); // Specify your error view name
     }

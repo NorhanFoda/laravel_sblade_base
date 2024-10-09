@@ -7,7 +7,8 @@
         @if (isset($checked) && $checked) checked @endif 
         value="{{ $value ?? '' }}"
         data-model="{{ $dataModel ?? '' }}" 
-        data-isArray="{{ $isArray ?? false }}">
+        data-isArray="{{ $isArray ?? false }}"
+        @if (isset($disabled) && $disabled) disabled @endif>
 
     <label 
         class="custom-control-label {{ $labelClass ?? '' }}" 

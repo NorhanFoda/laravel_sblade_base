@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <x-sidebar.item href="{{ route('home') }}" icon="dashboard" label="{{ __('app.sidebar.dashboard') }}" />
-            @canany(['create-user', 'read-user', 'update-user', 'delete-user'], 'sanctum')
+            @canany(['create-user', 'read-user', 'update-user', 'delete-user'])
                 <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="{{ __('app.sidebar.users') }}" />
             @endcanany
-            @canany(['create-role', 'read-role', 'update-role', 'delete-role'], 'sanctum')
+            @canany(['create-role', 'read-role', 'update-role', 'delete-role'])
                 <x-sidebar.item href="{{ route('roles.index') }}" icon="person"
                     label="{{ __('app.sidebar.roles_and_permissions') }}" />
             @endcanany

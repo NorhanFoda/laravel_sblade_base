@@ -4,5 +4,9 @@
         <span class="d-sm-inline d-none">{{ $label ?? 'save' }}</span>
     </a>
 @else
-    <button id="{{ $id ?? 'submit' }}" type="submit" class="btn btn-primary">{{ $label ?? 'save' }}</button>
+    <button 
+        id="{{ $id ?? 'submit' }}" 
+        type="submit" 
+        class="btn btn-primary"
+        @if(isset($disabled) && $disabled) disabled @endif>{{ $label ?? 'save' }}</button>
 @endif
