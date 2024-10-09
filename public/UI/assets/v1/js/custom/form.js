@@ -6,12 +6,14 @@ $(document).on('click', '#submit', function(e) {
 });
 
 function collectFormData() {
-    $('#form :input').each(function() {
+    $('#form :input, #form select').each(function() {
         let input = $(this);
         let name = input.attr('name');
         if (name) {
             if (input.is(':checkbox')) {
                 collectCheckboxValues(input, name);
+            } else if (input.is('select')) {
+                collectSelectValues(input, name);
             } else if (input.val() !== '') {
                 form[name] = input.val();
             }
@@ -30,6 +32,18 @@ function collectCheckboxValues(input, name) {
         }
     } else {
         form[name] = input.is(':checked') ? '1' : '0';
+    }
+}
+
+function collectSelectValues(input, name) {
+    let isArray = input.data('isarray');
+    if (isArray) {
+        if (!form[name]) {
+            form[name] = [];
+        }
+        form[name].push(input.val());
+    } else {
+        form[name] = input.val();
     }
 }
 

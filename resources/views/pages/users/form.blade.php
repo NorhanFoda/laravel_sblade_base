@@ -6,6 +6,7 @@
         <div class="col-12">
             <div class="card my-4">
                 <div class="card-body">
+                    {{-- {{ dd($model['data']['roles']) }} --}}
                     <form id="form"
                         action="{{ $model['resource']?->id ? route('users.update', ['user' => $model['resource']]) : route('users.store') }}"
                         data-redirect="{{ route('users.index') }}">
@@ -14,17 +15,25 @@
                             @method('PUT')
                         @endif
                         <div class="row">
-                            <x-form.input inputClass="col-md-6 mb-3 bm-3" label="Name" name="name" type="text"
-                                value="{{ $model['resource']?->name }}" :required="true" :errors="$errors" />
-
-                            <x-form.input inputClass="col-md-6 mb-3 bm-3" label="Email" name="email" type="email"
-                                value="{{ $model['resource']?->email }}" :required="true" :errors="$errors" />
-
-                            <x-form.input inputClass="col-md-6 mb-3 bm-3" label="Password" name="password" type="password"
-                                :required="true" :errors="$errors" />
-
-                            <x-form.input inputClass="col-md-6 mb-3 bm-3" label="Password Confirmation" name="password_confirmation"
-                                type="password" :required="true" :errors="$errors" />
+                            <div class="col-md-6 mb-3 bm-3">
+                                <x-form.input label="Name" name="name" type="text"
+                                    value="{{ $model['resource']?->name }}" :required="true" :errors="$errors" />
+                            </div>
+                            <div class="col-md-6 mb-3 bm-3">
+                                <x-form.input label="Email" name="email" type="email"
+                                    value="{{ $model['resource']?->email }}" :required="true" :errors="$errors" />
+                            </div>
+                            <div class="col-md-6 mb-3 bm-3">
+                                <x-form.input label="Password" name="password" type="password" :required="true"
+                                    :errors="$errors" />
+                            </div>
+                            <div class="col-md-6 mb-3 bm-3">
+                                <x-form.input label="Password Confirmation" name="password_confirmation" type="password"
+                                    :required="true" :errors="$errors" />
+                            </div>
+                            <div class="col-md-6 mb-3 bm-3">
+                                <x-form.select name="role_id" :options="$model['data']['roles']" :required="true" :errors="$errors" />
+                            </div>
                         </div>
                     </form>
                 </div>

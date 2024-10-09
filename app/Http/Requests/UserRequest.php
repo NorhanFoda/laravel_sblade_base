@@ -19,6 +19,11 @@ class UserRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this['role_id'] = (int)$this['role_id'];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,11 +31,10 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd($this->all());
         $rules = [
             'name' => config('validations.string.req'),
             'email' => sprintf(config('validations.email.req'), 'users', 'email', $this->user?->id),
-            // 'role_id' => sprintf(config('validations.model.req'), 'roles'),
+            'role_id' => sprintf(config('validations.model.req'), 'roles'),
             // 'user_avatar' => sprintf(config('validations.model.null'), 'files'),
         ];
         match ($this->method()) {

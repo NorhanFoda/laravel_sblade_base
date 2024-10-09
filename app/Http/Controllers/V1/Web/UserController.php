@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Controllers\V1\BaseController;
+use App\Repositories\Contracts\RoleContract;
 use App\Repositories\Contracts\UserContract;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -42,7 +43,7 @@ class UserController extends BaseController implements HasMiddleware
     public function create(): View
     {
         $this->viewName = 'pages.users.form';
-        return $this->respondWithModel(new User);
+        return $this->respondWithModel(new User, [], ['roles' => app(RoleContract::class)->search([], [], ['page' => 0, 'limit' => 0])]);
     }
 
     /**
