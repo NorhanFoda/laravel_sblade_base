@@ -51,6 +51,7 @@ class BaseController extends Controller
         $order = request('order', []);
         $filters = request()->all();
         
+        // dd($filters, $this->relations);
         $data = array_merge($filters, ['order' => $order, 'limit' => $limit, 'page' => $page]);
         $models = $this->contract->search($filters, $this->relations, $data);
 

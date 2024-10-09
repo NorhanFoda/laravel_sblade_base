@@ -105,8 +105,6 @@ class RoleController extends BaseController
     {
         try {
             $role = $this->contract->update($role, $request->validated());
-            $users_id = $role->users()->pluck('id');
-            User::whereIn('id',$users_id)->update(['need_logout'=>1]);
             return $this->respondWithModel($role, ['message' => __('app.messages.action_completed_successfully')]);
         } catch (Exception $exception) {
             return $this->respondWithError($exception->getMessage());

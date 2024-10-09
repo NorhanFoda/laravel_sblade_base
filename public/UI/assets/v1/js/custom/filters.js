@@ -1,7 +1,6 @@
 let filters = {
     page: 1,
     keyword: '',
-    embed: 'roles:id,roles.permissions:id',
     includeEmptyRelations: false,
     columns: 'id,name'
 };
@@ -15,6 +14,9 @@ $('#filter').on('input change', function() {
     });
 });
 $('#filter').submit(function(e) {
+    if ($(this).data('embed') !== '') {
+        filters.embed = $(this).data('embed'); 
+    }
     e.preventDefault();
     getResources();
 });

@@ -83,7 +83,7 @@ class UserController extends BaseController implements HasMiddleware
     public function edit(User $user)
     {
         $this->viewName = 'pages.users.form';
-        return $this->respondWithModel($user);
+        return $this->respondWithModel($user, [], ['roles' => app(RoleContract::class)->search([], [], ['page' => 0, 'limit' => 0])]);
     }
 
     /**
