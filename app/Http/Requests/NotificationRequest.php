@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\JsonValidationTrait;
 
-class UserRequest extends FormRequest
+class NotificationRequest extends FormRequest
 {
     use JsonValidationTrait;
 

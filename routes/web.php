@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\Dashboard\NotificationController;
-use App\Http\Controllers\Api\V1\Dashboard\GeneralSettingsController;
+use App\Http\Controllers\V1\Dashboard\NotificationController;
 use App\Http\Controllers\V1\Web\HomeController;
 use App\Http\Controllers\V1\Web\RoleController;
 use App\Http\Controllers\V1\Web\UserController;
@@ -32,12 +31,6 @@ Route::middleware('auth:web')->group(function() {
     Route::post('logout', LogoutController::class)->name('logout');
 });
 
-Route::apiResource('generalsettings', GeneralSettingsController::class);
+// -----------------------------START: Dashboard-----------------------------------
 
-Route::apiResource('generalsettings', GeneralSettingsController::class);
-
-Route::apiResource('notifications', NotificationController::class);
-
-Route::apiResource('notifications', NotificationController::class);
-
-Route::apiResource('notifications', NotificationController::class);
+Route::resource('notifications', NotificationController::class);

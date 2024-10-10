@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers;
 
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
@@ -37,7 +37,7 @@ class BaseWebController extends Controller
         $limit = request('limit', 10);
         $order = request('order', []);
         $filters = request()->all();
-        
+
         $data = array_merge($filters, ['order' => $order, 'limit' => $limit, 'page' => $page]);
         $models = $this->contract->search($filters, $this->relations, $data);
 
@@ -47,7 +47,7 @@ class BaseWebController extends Controller
 
         return $this->indexBlade($models, $this->indexPath);
     }
-    
+
     /**
      * indexBlade() Render a Blade view for index.
      *
