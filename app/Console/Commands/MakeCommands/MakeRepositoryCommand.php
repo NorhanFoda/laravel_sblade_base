@@ -4,6 +4,7 @@ namespace App\Console\Commands\MakeCommands;
 
 use App\Traits\MakeCommandTrait;
 use Exception;
+use phpDocumentor\Reflection\Types\Self_;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\multiselect;
 use function Laravel\Prompts\select;
@@ -17,6 +18,7 @@ use Symfony\Component\Console\Command\Command as CommandAlias;
 class MakeRepositoryCommand extends Command
 {
     use MakeCommandTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -36,6 +38,7 @@ class MakeRepositoryCommand extends Command
     protected bool $web = false;
     protected bool $mobile = false;
     protected bool $createRoute = true;
+    protected bool $createViews = true;
     protected string $modelName;
     protected string $modelObject;
     protected string $namespace;
@@ -58,26 +61,44 @@ class MakeRepositoryCommand extends Command
         echo Artisan::output();
         $this->call('make:contract-repo', ['modelName' => $this->modelName]);
         if ($this->web) {
-            $this->call('make:model-controller', ['modelName' => $this->modelName,
-                '--type' => 'web', '--namespace' => $this->namespace]);
+            $this->call('make:model-controller', [
+                'modelName' => $this->modelName,
+                '--type' => 'web',
+                '--namespace' => $this->namespace
+            ]);
             if ($this->createRoute) {
-                $this->call('make:route', ['modelName' => $this->modelName,
-                    '--type' => 'web', '--namespace' => $this->namespace]);
+                $this->call('make:route', [
+                    'modelName' => $this->modelName,
+                    '--type' => 'web',
+                    '--namespace' => $this->namespace
+                ]);
             }
         }
         if ($this->api) {
-            $this->call('make:model-controller', ['modelName' => $this->modelName,
-                '--type' => 'api', '--namespace' => $this->namespace]);
-            $this->call('make:custom-resource', ['name' => $this->modelName]);
+            $this->call('make:model-controller', [
+                'modelName' => $this->modelName,
+                '--type' => 'api',
+                '--namespace' => $this->namespace
+            ]);
+            $this->call('make:custom-resource', [
+                'name' => $this->modelName
+            ]);
             if ($this->createRoute) {
-                $this->call('make:route', ['modelName' => $this->modelName,
-                    '--type' => 'api', '--namespace' => $this->namespace]);
+                $this->call('make:route', [
+                    'modelName' => $this->modelName,
+                    '--type' => 'api',
+                    '--namespace' => $this->namespace
+                ]);
             }
         }
-        $this->call('make:custom-request', ['name' => $this->modelName]);
-        if ($this->mobile && $this->createRoute) {
-            $this->call('make:route', ['modelName' => $this->modelName,
-                '--type' => 'mobile', '--namespace' => $this->namespace]);
+        $this->call('make:custom-request', [
+            'name' => $this->modelName
+        ]);
+        if ($this->createViews) {
+            $this->call('app:make-view-blade-command', [
+                'modelName' => $this->modelName,
+                '--namespace' => $this->namespace,
+            ]);
         }
 
         return CommandAlias::SUCCESS;
@@ -115,6 +136,11 @@ class MakeRepositoryCommand extends Command
         // ask to create routes
         $this->createRoute = confirm(
             label: 'Create the route for you?',
+            default: true,
+            required: true
+        );
+        $this->createViews = confirm(
+            label: 'Create the Blade Views for you?',
             default: true,
             required: true
         );
