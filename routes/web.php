@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\V1\Web\HomeController;
 use App\Http\Controllers\V1\Web\RoleController;
 use App\Http\Controllers\V1\Web\UserController;
