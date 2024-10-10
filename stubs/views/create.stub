@@ -6,8 +6,8 @@
             <div class="card my-4">
                 <div class="card-body">
                     <form id="form"
-                        action="{{ route('{{namespace}}.{{folderName}}.store') }}"
-                        data-redirect="{{ route('{{namespace}}.{{folderName}}.index') }}">
+                        action="{{ route('{{namespace}}.{{bladeFolderName}}.store') }}"
+                        data-redirect="{{ route('{{namespace}}.{{bladeFolderName}}.index') }}">
                         @csrf
                       @include('{{namespace}}.{{folderName}}.partials._form')
                     </form>
