@@ -173,7 +173,7 @@ class BaseWebController extends Controller
      * @param string $message
      * @return JsonResponse
      */
-    protected function respondWithModel($model, $message, $status): JsonResponse
+    protected function respondWithModel($model, $message = '', $status = ''): JsonResponse
     {
         return response()->json([
             'model' => $model,

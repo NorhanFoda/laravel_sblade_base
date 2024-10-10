@@ -31,4 +31,3 @@ Route::middleware('auth:web')->group(function() {
 
     Route::post('logout', LogoutController::class)->name('logout');
 });
-
