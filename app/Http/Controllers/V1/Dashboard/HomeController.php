@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\V1\Web;
+namespace App\Http\Controllers\V1\Dashboard;
 
-use App\Http\Resources\HomeResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\View\View;
 
 class HomeController implements HasMiddleware
 {
+    private string $bladeParentFolder = 'V1.Dashboard.';
     /**
      * @return void
      */
@@ -29,6 +29,6 @@ class HomeController implements HasMiddleware
      */
     public function index(): JsonResponse|View
     {
-        return view('pages.home');
+        return view($this->bladeParentFolder. 'home');
     }
 }

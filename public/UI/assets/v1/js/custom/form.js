@@ -1,68 +1,38 @@
 let form = {};
 $(document).on('click', '#submit', function(e) {
     e.preventDefault();
-    collectFormData();
     submit();
 });
 
-function collectFormData() {
-    $('#form :input, #form select').each(function() {
-        let input = $(this);
-        let name = input.attr('name');
-        if (name) {
-            if (input.is(':checkbox')) {
-                collectCheckboxValues(input, name);
-            } else if (input.is('select')) {
-                collectSelectValues(input, name);
-            } else if (input.val() !== '') {
-                form[name] = input.val();
-            }
-        }
-    }); 
-}
-
-function collectCheckboxValues(input, name) {
-    let isArray = input.data('isarray');
-    if (isArray) {
-        if (!form[name]) {
-            form[name] = [];
-        }
-        if (input.is(':checked')) {
-            form[name].push(input.val());
-        }
-    } else {
-        form[name] = input.is(':checked') ? '1' : '0';
-    }
-}
-
-function collectSelectValues(input, name) {
-    let isArray = input.data('isarray');
-    if (isArray) {
-        if (!form[name]) {
-            form[name] = [];
-        }
-        form[name].push(input.val());
-    } else {
-        form[name] = input.val();
-    }
-}
-
 // Store and Edit form
 function submit() {
+    let formData = new FormData($('#form')[0]);
+    let redirect = $('#form').data('redirect') ?? '';
+    let reload = parseInt($('#form').data('reload')) ?? 0;
+    let url = $('#form').attr('action');
     $.ajax({
         url:  $('#form').attr('action'),
         method: 'POST',
-        data: form,
+        processData: false,
+        contentType: false,
+        data: formData,
         success: function(response) {
-            if (response.message?.message) {
-                toastr.success(response.message?.message);
+            if (response.message) {
+                toastr.success(response.message);
             }
-            setTimeout(function() {
-                window.location.href = $('#form').data('redirect');
-            }, 1000);
+            if (redirect) {
+                setTimeout(function() {
+                    window.location.replace(redirect);
+                }, 1000);
+            }
+            if (reload) {
+                setTimeout(function() {
+                    window.location.reload();
+                }, 1000);
+            }
         },
         error: function(error) {
-            // console.log(error);
+            // console.log(error.responseText);
             toastr.error(JSON.parse(error.responseText)?.message);
             if (error.status === 422) {
                 let errors = error.responseJSON.errors;

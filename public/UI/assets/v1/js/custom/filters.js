@@ -21,14 +21,14 @@ $('#filter').submit(function(e) {
     getResources();
 });
 
-function getResources(page = 1, tableId = 'dataTable') {
+function getResources(page = 1, tableId = 'table') {
     filters.page = page;
     $.ajax({
         url: window.location.href,
         method: 'GET',
         data: filters,
         success: function(response) {
-            $(`#${tableId} tbody`).html(response.html); // Update table rows with the data
+            $(`#${tableId}`).html(response.html); // Update table rows with the data
             updatePagination(response.totalEntries, response.currentPage, response.totalPages);
         }
     });

@@ -89,7 +89,7 @@ trait BaseResponseTrait
     protected function respondWithError($message, int $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse|View
     {
         return request()->wantsJson() || request()->ajax()
-            ? $this->respondWithErrors($message, $statusCode)
+            ? $this->respondWithErrors(message: $message, statusCode: $statusCode)
             : $this->respondWithView($this->viewName, $message);
     }
 

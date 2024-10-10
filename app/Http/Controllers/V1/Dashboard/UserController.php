@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\V1\Web;
+namespace App\Http\Controllers\V1\Dashboard;
 
 use Exception;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
-use App\Http\Resources\UserResource;
-use App\Http\Controllers\V1\BaseController;
+use App\Http\Controllers\BaseWebController;
 use App\Repositories\Contracts\RoleContract;
 use App\Repositories\Contracts\UserContract;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Http\RedirectResponse;
 
-class UserController extends BaseController implements HasMiddleware
+
+class UserController extends BaseWebController implements HasMiddleware
 {
     /**
      * @return void
@@ -29,36 +30,34 @@ class UserController extends BaseController implements HasMiddleware
      */
     public function __construct(UserContract $contract)
     {
-        $this->viewName = 'pages.users.index';
-        $this->partialViewName = 'pages.users.partials.rows';
-        parent::__construct($contract, UserResource::class, $this->viewName, $this->partialViewName);
+        $this->bladeFolderName = 'V1.Dashboard.users.';
+        parent::__construct($contract);
         $this->relations = ['roles', 'permissions', 'avatar'];
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return Application|View
      */
     public function create(): View
     {
-        $this->viewName = 'pages.users.form';
-        return $this->respondWithModel(new User, [], ['roles' => app(RoleContract::class)->search([], [], ['page' => 0, 'limit' => 0])]);
+        return $this->createBlade(['roles' => app(RoleContract::class)->search([], [], ['page' => 0, 'limit' => 0])]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param UserRequest $request
-     * @return JsonResponse
+     * @return JsonResponse|RedirectResponse
      */
-    public function store(UserRequest $request): JsonResponse
+    public function store(UserRequest $request): JsonResponse|RedirectResponse
     {
         try{
-            $user = $this->contract->create($request->validated());
-            return $this->respondWithModel($user, ['message' => __('messages.action_completed_successfully')]);
+            $model = $this->contract->create($request->validated());
+            return $this->redirectBack('success', __('messages.actions_messages.create_success'), $model);
         } catch (Exception $exception) {
-            return $this->respondWithError($exception->getMessage());
+            return $this->redirectBack('error', $exception->getMessage());
         }
     }
 
@@ -66,12 +65,11 @@ class UserController extends BaseController implements HasMiddleware
      * Display the specified resource.
      *
      * @param User $user
-     * @return JsonResponse|view
+     * @return view
      */
-    public function show(User $user): JsonResponse|View
+    public function show(User $user): View
     {
-        $this->viewName = 'pages.users.show';
-        return $this->respondWithModel($user);
+        return $this->showBlade($user);
     }
 
     /**
@@ -80,10 +78,11 @@ class UserController extends BaseController implements HasMiddleware
      * @param User $user
      * @return view
      */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
-        $this->viewName = 'pages.users.form';
-        return $this->respondWithModel($user, [], ['roles' => app(RoleContract::class)->search([], [], ['page' => 0, 'limit' => 0])]);
+        $user->load('roles');
+        $user->setAttribute('role_id', $user->role_id);
+        return $this->editBlade($user, ['roles' => app(RoleContract::class)->search([], [], ['page' => 0, 'limit' => 0])]);
     }
 
     /**
@@ -93,11 +92,14 @@ class UserController extends BaseController implements HasMiddleware
      * @param User $user
      * @return JsonResponse
      */
-    public function update(UserRequest $request, User $user): JsonResponse
+    public function update(UserRequest $request, User $user): JsonResponse|RedirectResponse
     {
-        $data = $request->validated();
-        $user = $this->contract->update($user, $data);
-        return $this->respondWithModel($user, ['message' => __('messages.action_completed_successfully')]);
+        try{
+            $model = $this->contract->update($user, $request->validated());
+            return $this->redirectBack('success', __('messages.actions_messages.update_success'), $model);
+        } catch (Exception $exception) {
+            return $this->redirectBack('error', $exception->getMessage());
+        }
     }
 
     /**
@@ -106,11 +108,10 @@ class UserController extends BaseController implements HasMiddleware
      * @param User $user
      * @return JsonResponse
      */
-    public function destroy(User $user): JsonResponse|View
+    public function destroy(User $user): JsonResponse|RedirectResponse
     {
         $this->contract->remove($user);
-        $this->viewName = 'pages.users.index';
-        return $this->respondWithSuccess(__('app.messages.deleted_successfully'));
+        return $this->redirectBack('success', __('messages.actions_messages.delete_success'));
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Web;
+namespace App\Http\Controllers\V1\Dashboard;
 
 use App\Http\Controllers\Api\V1\BaseApiController;
 use App\Http\Resources\ActivityLogResource;

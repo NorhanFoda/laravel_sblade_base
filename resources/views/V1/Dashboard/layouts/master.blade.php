@@ -28,7 +28,7 @@
 
     <title>{{config('app.name')}}</title>
 
-    @include('layouts.styles')
+    @include('V1.Dashboard.layouts.styles')
 
 
     @stack('css')
@@ -38,13 +38,13 @@
 <body class="g-sidenav-show bg-gray-200">
 
     <!-- Sidebar -->
-    @include('layouts.sidebar')
+    @include('V1.Dashboard.layouts.sidebar')
     <!-- End of Sidebar -->
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
 
         <!-- Topbar -->
-        @include('layouts.topbar')
+        @include('V1.Dashboard.layouts.topbar')
         <!-- End of Topbar -->
 
         <div class="container-fluid py-4">
@@ -52,17 +52,17 @@
             @yield('content')
 
             <!-- Footer -->
-            @include('layouts.footer')
+            @include('V1.Dashboard.layouts.footer')
             <!-- End of Footer -->
 
         </div>
     </main>
 
-    @include('layouts.style-settings')
+    @include('V1.Dashboard.layouts.style-settings')
 
     {{-- @vite(['resources/js/app.js']) --}}
 
-    @include('layouts.scripts')
+    @include('V1.Dashboard.layouts.scripts')
     @stack('js')
 </body>
 
