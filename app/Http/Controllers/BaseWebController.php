@@ -18,10 +18,9 @@ class BaseWebController extends Controller
     protected string $indexPath = 'index';
     protected string $indexRowsPath = 'partials.rows';
 
-    public function __construct(BaseContract $contract, string $bladeFolderName)
+    public function __construct(BaseContract $contract)
     {
         $this->contract = $contract;
-        $this->bladeFolderName = $bladeFolderName;
         if (request()->has('embed')) {
             $this->parseIncludes(request('embed'));
         }
@@ -56,9 +55,9 @@ class BaseWebController extends Controller
      * @param string $path
      * @return View
      */
-    protected function indexBlade($models, $path): View
+    protected function indexBlade($models, $path, $data = null): View
     {
-        return view($this->bladeFolderName . '.' . $path, compact('models'));
+        return view($this->bladeFolderName . '.' . $path, compact('models', 'data'));
     }
 
     /**

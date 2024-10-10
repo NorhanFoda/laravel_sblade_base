@@ -30,20 +30,9 @@ class {{modelName}}Controller extends BaseWebController
     public function __construct({{modelName}}Contract $contract)
     {
         $this->folderName = '{{bladeNamespace}}.{{folderName}}';
-        parent::__construct($contract, 'dashboard');
+        parent::__construct($contract);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @return Application|Factory|View
-     */
-    public function index(Request $request): View|Factory|Application
-    {
-        $resources = $this->contract->search($request->all());
-        return $this->indexBlade(['resources' => $resources]);
-    }
-
+    
      /**
      * Show the form for creating a new resource.
      *
