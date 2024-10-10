@@ -1,0 +1,24 @@
+@extends('layouts.master')
+@section('content')
+    <x-page-header previousPage="Pages" currentPage="New {{modelName}}" previousPageLink="#" />
+    <div class="row">
+        <div class="col-12">
+            <div class="card my-4">
+                <div class="card-body">
+                    <form id="form"
+                        action="{{ route('{{namespace}}.{{folderName}}.store') }}"
+                        data-redirect="{{ route('{{namespace}}.{{folderName}}.index') }}">
+                        @csrf
+                      @include('{{namespace}}.{{folderName}}.partials._form')
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <x-form.submit />
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@push('js')
+    <script src="{{ asset('UI/assets/v1/js/custom/form.js') }}"></script>
+@endpush
