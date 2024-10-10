@@ -30,29 +30,22 @@ class MakeRouteCommand extends Command
      */
     public function handle(): void
     {
-        $ds = DIRECTORY_SEPARATOR;
+        $ds = $this->ds;
         $type = $this->option('type');
         $namespace = $this->option('namespace');
         $modelName = $this->argument('modelName');
-        $controllerNamespace = $this->getBaseControllerNamespace() . $ds . 'V1' . $this->getNamespace($namespace);
-        if ($type == 'api') {
-            $controllerNamespace = $this->getBaseControllerNamespace() . 'Api' . $ds . 'V1' . $this->getNamespace($namespace);
-        }
+        $controllerNamespace = $this->getBaseControllerNamespace() . 'Api' . $ds . 'V1' . $this->getNamespace($namespace);
         $controllerNamespace = str_replace('/', '\\', $controllerNamespace);
         $controllerName = $modelName . 'Controller';
         $useStatement = "use $controllerNamespace\\" . $controllerName . ';';
         $routesFilePath = base_path("routes/$type.php");
         $routesContent = File::get($routesFilePath);
-        if (!preg_match('/^use.*?' . $controllerName . ';/m', $routesContent)) {
+        if (!preg_match('/^use.*?'.$controllerName.';/m', $routesContent)) {
             $routesContent = preg_replace('/^(use .*?;)/m', "$1\n$useStatement", $routesContent, 1);
         }
         $routeName = Str::plural(Str::lower($modelName));
-        $route = "Route::resource('$routeName', $controllerName::class);";
-        if ($type == 'api') {
-            $route = "Route::apiResource('$routeName', $controllerName::class);";
-        }
+        $route = "Route::apiResource('$routeName', $controllerName::class);";
         $routesContent .= "\n$route\n";
-
         File::put($routesFilePath, $routesContent);
         $this->info("Route added to routes/$type.php successfully.");
     }

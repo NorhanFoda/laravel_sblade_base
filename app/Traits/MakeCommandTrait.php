@@ -74,7 +74,7 @@ trait MakeCommandTrait
         return app_path() . $ds . $resourceNamespace;
     }
 
-    public function replaceTemplateContent($template, $modelName, $namespace = null, $folderName = null, $permissionName = null): array|string
+    public function replaceTemplateContent($template, $modelName, $namespace = null, $folderName = null): array|string
     {
         $search = [
             '{{modelName}}',
@@ -83,19 +83,18 @@ trait MakeCommandTrait
             '{{namespace}}',
             '{{modelObject}}',
             '{{folderName}}',
-            '{{bladeNamespace}}',
-            '{{permissionName}}'
+            '{{bladeNamespace}}'
         ];
+        $namespace = mb_substr($namespace, -1) == '/' ? substr($namespace, 0, -1) : $namespace;
         $bladeNamespace = $namespace ? str_replace('/', '.', $namespace) : '';
         $replace = [
             $modelName,
             Str::lower($modelName),
             Str::plural(Str::lower($modelName)),
-            $namespace,
+            ($namespace) ? '\\' . str_replace('/', '\\', $namespace) : '',
             Str::camel($modelName),
             Str::remove('/', Str::lower($folderName)),
-            $bladeNamespace,
-
+            $bladeNamespace
         ];
         return str_replace($search, $replace, $template);
     }
@@ -103,31 +102,10 @@ trait MakeCommandTrait
     public function getControllerPath($type, $namespace = null): string
     {
         $ds = $this->ds;
-        $controllerNamespace = 'Http' . $ds . 'Controllers' . $ds . 'V1' . $ds . $this->getNamespace($namespace);
+        $controllerNamespace = 'Http' . $ds . 'Controllers' . $ds . $this->getNamespace($namespace);
         if ($type == 'api') {
             $controllerNamespace = 'Http' . $ds . 'Controllers' . $ds . 'Api' . $ds . 'V1' . $ds . $this->getNamespace($namespace);
         }
         return app_path() . $ds . $controllerNamespace;
-    }
-
-    public function getRepositoryNamespace($namespace = null): string
-    {
-        $ds = $this->ds;
-        return 'Repositories' . $ds . $this->getNamespace($namespace);
-    }
-
-    public function getRepositoryPath($namespace = null): string
-    {
-        $ds = $this->ds;
-        $repositoryNamespace = 'Repositories' . $ds . $this->getNamespace($namespace);
-        return app_path() . $ds . $repositoryNamespace;
-    }
-
-    //get a view path
-    public function getViewsPath($folderName, $namespace = null): string
-    {
-        $ds = $this->ds;
-        $viewsNamespace = 'resources' . $ds . 'views' . $ds . $this->getNamespace($namespace) . $folderName;
-        return base_path() . $ds . $viewsNamespace;
     }
 }
