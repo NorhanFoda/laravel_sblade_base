@@ -6,8 +6,8 @@
             <div class="card my-4">
                 <div class="card-body">
                     <form id="form"
-                          action="{{ route('{{namespace}}.{{folderName}}.update',$resource->id)}}"
-                          data-redirect="{{ route('{{namespace}}.{{folderName}}.index') }}">
+                          action="{{ route('{{namespace}}.{{bladeFolderName}}.update',$resource->id)}}"
+                          data-redirect="{{ route('{{namespace}}.{{bladeFolderName}}.index') }}">
                         @csrf
                         @method('PUT')
                         @include('{{namespace}}.{{folderName}}.partials.form')
