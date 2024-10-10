@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class HomeController implements HasMiddleware
 {
-    private string $bladeParentFolder = 'V1.Dashboard.';
+    private string $bladeParentFolder = 'dashboard.';
     /**
      * @return void
      */

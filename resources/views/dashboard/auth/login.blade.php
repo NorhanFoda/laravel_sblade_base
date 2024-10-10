@@ -1,4 +1,4 @@
-@extends('V1.Dashboard.layouts.auth')
+@extends('dashboard.layouts.auth')
 @section('content')
     <main class="main-content  mt-0">
         <div class="page-header align-items-start min-vh-100"
@@ -13,7 +13,7 @@
                                     <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">
                                         {{ __('app.titles.signin') }}</h4>
 
-                                    @include('V1.Dashboard.auth.partials.social-login')
+                                    @include('dashboard.auth.partials.social-login')
 
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-@extends('V1.Dashboard.layouts.master')
+@extends('dashboard.layouts.master')
 
 @section('content')
     <x-page-header previousPage="Pages" currentPage="Index" previousPageLink="#">

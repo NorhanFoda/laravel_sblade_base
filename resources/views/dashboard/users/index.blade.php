@@ -1,5 +1,5 @@
 {{-- {{ dd($models) }} --}}
-@extends('V1.Dashboard.layouts.master')
+@extends('dashboard.layouts.master')
 
 @section('content')
     <x-page-header previousPage="Pages" currentPage="Users" previousPageLink="#">
@@ -18,7 +18,7 @@
 
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0" id="table">
-                        @include('V1.Dashboard.users.partials._table')
+                        @include('dashboard.users.partials._table')
                     </div>
                 </div>
 

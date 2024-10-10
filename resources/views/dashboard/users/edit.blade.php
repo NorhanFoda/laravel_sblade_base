@@ -1,4 +1,4 @@
-@extends('V1.Dashboard.layouts.master')
+@extends('dashboard.layouts.master')
 @section('content')
     <x-page-header previousPage="Pages" currentPage="New User" previousPageLink="#" />
 
@@ -7,10 +7,11 @@
             <div class="card my-4">
                 <div class="card-body">
                     <form id="form"
-                        action="{{ route('users.store') }}"
+                        action="{{ route('users.update', ['user' => $model]) }}"
                         data-redirect="{{ route('users.index') }}">
                         @csrf
-                        @include('V1.Dashboard.users.partials._form')
+                        @method('PUT')
+                        @include('dashboard.users.partials._form')
                     </form>
                 </div>
                 <div class="card-footer">

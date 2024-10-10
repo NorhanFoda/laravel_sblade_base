@@ -30,7 +30,7 @@ class UserController extends BaseWebController implements HasMiddleware
      */
     public function __construct(UserContract $contract)
     {
-        $this->bladeFolderName = 'V1.Dashboard.users.';
+        $this->bladeFolderName = 'dashboard.users.';
         parent::__construct($contract);
         $this->relations = ['roles', 'permissions', 'avatar'];
     }
