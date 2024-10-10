@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\Web;
+namespace App\Http\Controllers\V1\Dashboard;
 
 use Exception;
 use App\Models\Role;

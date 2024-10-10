@@ -117,5 +117,11 @@ class User extends Authenticatable
     {
         return $this->tokens->whereNotNull('fcm_token')->unique('fcm_token')->pluck('fcm_token')->toArray();
     }
+
+    // ---------------------------------------Attributes---------------------------------------
+    public function getRoleIdAttribute()
+    {
+        return $this->roles->last()?->id;
+    }
 }
 

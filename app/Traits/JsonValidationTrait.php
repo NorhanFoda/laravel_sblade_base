@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 trait JsonValidationTrait
 {
-    use BaseResponseTrait;
+    use BaseApiResponseTrait;
 
     /**
      * Handle a failed validation attempt.

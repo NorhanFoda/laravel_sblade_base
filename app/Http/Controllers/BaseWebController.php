@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Http\Controllers\V1;
+namespace App\Http\Controllers;
 
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\Contracts\BaseContract;
@@ -11,12 +12,16 @@ use Illuminate\Routing\Controllers\Middleware;
 
 class BaseWebController extends Controller
 {
+    
     protected bool $order = true;
     protected BaseContract $contract;
     protected array $relations = [];
     protected string $bladeFolderName;
     protected string $indexPath = 'index';
-    protected string $indexRowsPath = 'partials.rows';
+    protected string $createPath = 'create';
+    protected string $editPath = 'edit';
+    protected string $showPath = 'show';
+    protected string $indexRowsPath = 'partials._table';
 
     public function __construct(BaseContract $contract)
     {
@@ -31,7 +36,7 @@ class BaseWebController extends Controller
      *
      * @return JsonResponse|View
      */
-    public function index(): View
+    public function index(): View|JsonResponse
     {
         $page = request('page', 1);
         $limit = request('limit', 10);
@@ -42,10 +47,10 @@ class BaseWebController extends Controller
         $models = $this->contract->search($filters, $this->relations, $data);
 
         if (request()->ajax()) {
-            return $this->indexBlade($models, $this->indexRowsPath);
+            return $this->indexBlade($models, null, $this->indexRowsPath);
         }
 
-        return $this->indexBlade($models, $this->indexPath);
+        return $this->indexBlade($models, null, $this->indexPath);
     }
     
     /**
@@ -55,9 +60,17 @@ class BaseWebController extends Controller
      * @param string $path
      * @return View
      */
-    protected function indexBlade($models, $path, $data = null): View
+    protected function indexBlade($models, $data = null,  $path = ''): View|JsonResponse
     {
-        return view($this->bladeFolderName . '.' . $path, compact('models', 'data'));
+        if (request()->ajax()) {
+            return response()->json([
+                'html' => view($this->bladeFolderName . $path, ['models' => $models])->render(),
+                'totalEntries' => $models->total(),
+                'currentPage' => $models->currentPage(),
+                'totalPages' => $models->lastPage()
+            ]);
+        }
+        return view($this->bladeFolderName . $path, compact('models', 'data'));
     }
 
     /**
@@ -66,9 +79,9 @@ class BaseWebController extends Controller
      * @param mixed $data
      * @return View
      */
-    protected function createBlade($data = null): View
+    protected function createBlade($data = null, $path = ''): View
     {
-        return view($this->bladeFolderName . '.create', compact('data'));
+        return view($this->bladeFolderName . ($path !== '' ? $path : $this->createPath), compact('data'));
     }
 
 
@@ -79,9 +92,9 @@ class BaseWebController extends Controller
      * @param mixed $data
      * @return View
      */
-    protected function editBlade($model, $data = null): View
+    protected function editBlade($model, $data = null, $path = ''): View
     {
-        return view($this->bladeFolderName . '.edit', compact('model', 'data'));
+        return view($this->bladeFolderName . ($path !== '' ? $path : $this->editPath), compact('model', 'data'));
     }
 
     /**
@@ -91,9 +104,9 @@ class BaseWebController extends Controller
      * @param mixed $data
      * @return View
      */
-    protected function showBlade($model, $data = null): View
+    protected function showBlade($model, $data = null, $path = ''): View
     {
-        return view($this->bladeFolderName . '.show', compact('model', 'data'));
+        return view($this->bladeFolderName . ($path !== '' ? $path : $this->showPath), compact('model', 'data'));
     }
 
     /**
@@ -102,13 +115,20 @@ class BaseWebController extends Controller
      *
      * @param string $status
      * @param string $message
-     * @return RedirectResponse
+     * @return RedirectResponse|JsonResponse
      */
-    protected function redirectBack($status = 'success', $message = ''): RedirectResponse
+    protected function redirectBack($status = 'success', $message = '', $data = null): RedirectResponse|JsonResponse
     {
+        if (request()->ajax()) {
+            return $this->respondWithModel($data, $message, $status);
+        }
         return redirect()->back()->with($status, $message);
     }
 
+    protected function redirectTo($route, $data = null, $status = 'success', $message = ''): RedirectResponse
+    {
+        return redirect()->route($route)->with($status, $message, $data);
+    }
 
     /**
      * parseIncludes() used to explode embed relations array
@@ -144,5 +164,21 @@ class BaseWebController extends Controller
             $middlewares['d'] = new Middleware('permission:delete-' . $model, only: ['destroy']);
         }
         return $middlewares;
+    }
+
+    /**
+     * respondWithModel() used to return result with one model relation
+     *
+     * @param $model
+     * @param string $message
+     * @return JsonResponse
+     */
+    protected function respondWithModel($model, $message, $status): JsonResponse
+    {
+        return response()->json([
+            'model' => $model,
+            'message' => $message,
+            'status' => $status
+        ]);
     }
 }

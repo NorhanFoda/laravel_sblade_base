@@ -13,7 +13,10 @@
         @if(isset($disabled) && $disabled) disabled @endif
         data-isArray="{{ $isArray ?? false }}">
         @foreach ($options as $option)
-            <option value="{{ $option->id }}">{{ $option->name }}</option>
+            <option value="{{ $option->id }}" 
+                {{ (isset($selected) && $selected == $option->id) ? 'selected' : '' }}>
+                {{ $option->name }}
+            </option>
         @endforeach
     </select>
 </div>

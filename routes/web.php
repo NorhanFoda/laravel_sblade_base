@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\Dashboard\NotificationController;
 use App\Http\Controllers\Api\V1\Dashboard\GeneralSettingsController;
-use App\Http\Controllers\V1\Web\HomeController;
-use App\Http\Controllers\V1\Web\RoleController;
-use App\Http\Controllers\V1\Web\UserController;
-use App\Http\Controllers\V1\Web\Auth\LoginController;
-use App\Http\Controllers\V1\Web\PermissionController;
-use App\Http\Controllers\V1\Web\Auth\LogoutController;
+use App\Http\Controllers\V1\Dashboard\HomeController;
+use App\Http\Controllers\V1\Dashboard\RoleController;
+use App\Http\Controllers\V1\Dashboard\UserController;
+use App\Http\Controllers\V1\Dashboard\Auth\LoginController;
+use App\Http\Controllers\V1\Dashboard\PermissionController;
+use App\Http\Controllers\V1\Dashboard\Auth\LogoutController;
 
 // -----------------------------START: Auth-----------------------------------
 Route::get('/', [LoginController::class, 'getLoginForm'])->name('login.form');
@@ -32,12 +32,3 @@ Route::middleware('auth:web')->group(function() {
     Route::post('logout', LogoutController::class)->name('logout');
 });
 
-Route::apiResource('generalsettings', GeneralSettingsController::class);
-
-Route::apiResource('generalsettings', GeneralSettingsController::class);
-
-Route::apiResource('notifications', NotificationController::class);
-
-Route::apiResource('notifications', NotificationController::class);
-
-Route::apiResource('notifications', NotificationController::class);

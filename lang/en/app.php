@@ -41,10 +41,6 @@ return [
         'signout' => 'Sign Out'
     ],
     'messages' => [
-        'dont_have_account' => 'Don\'t have an account?',
-        'wrong_credentials' => 'Wrong Credentials',
-        'role_can_not_be_deleted' => 'Role can not be deleted',
-        'deleted_successfully' => 'Role deleted successfully',
-        'action_completed_successfully' => 'Action completed successfully'
+        
     ]
 ];
