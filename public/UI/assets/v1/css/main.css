@@ -44,4 +44,16 @@ html, body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
+.card .card-header {
+    padding: 1rem;
+}
+.card .card-body {
+    font-family: "Tajawal", Helvetica, Arial, sans-serif;
+    padding: 0.5rem;
+}
+.form-check{
+    display: block;
+    min-height: auto;
+    padding-left: 0.25em;
+    margin-bottom: 0.125rem;
+}

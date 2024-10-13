@@ -1,10 +1,10 @@
 <div class="row">
     @foreach ($systemPermissions as $model => $permissionItems)
-        <div class="col-md-3 mt-6 mb-4">
+        <div class="col-md-2 mt-2 mb-2">
             <div class="card shadow-lg">
                 <div class="card-header text-center pt-1 pb-1 bg-gray-200">
                     <h5 class="font-weight-normal mt-2">
-                        <div class="d-flex justify-content-lg-start justify-content-center p-2">
+                        <div class="d-flex justify-content-lg-start justify-content-center p-1">
                             <x-form.checkbox
                                 label="{{ $model }}"
                                 :value="$model"

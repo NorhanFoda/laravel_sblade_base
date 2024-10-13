@@ -1,5 +1,5 @@
 <div class="filter-container d-flex flex-column align-items-end">
-    <button class="btn btn-outline-light btn-icon-text d-flex align-items-center me-2"
+    <button class="btn btn-outline-primary btn-icon-text d-flex align-items-center me-2"
         type="button" data-bs-toggle="collapse" data-bs-target="#filterSection"
         aria-expanded="false" aria-controls="filterSection">
         <i class="fas fa-filter me-2"></i> Filter
