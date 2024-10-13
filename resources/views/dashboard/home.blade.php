@@ -1,4 +1,6 @@
 @extends('dashboard.layouts.master')
+@section('title', __('messages.sidebar.dashboard'))
+
 
 @section('content')
     <x-page-header previousPage="Pages" currentPage="Index" previousPageLink="#">

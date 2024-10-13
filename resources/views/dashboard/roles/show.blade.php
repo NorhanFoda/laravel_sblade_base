@@ -1,4 +1,6 @@
 @extends('dashboard.layouts.master')
+@section('title', __('messages.sidebar.roles_and_permissions'))
+
 @section('content')
     <x-page-header previousPage="Pages" currentPage="New Role" previousPageLink="#" />
 

@@ -1,4 +1,6 @@
 @extends('layouts.master')
+@section('title', __('messages.sidebar.users'))
+
 @section('content')
     <x-page-header previousPage="Pages" currentPage="User" previousPageLink="#" />
 
