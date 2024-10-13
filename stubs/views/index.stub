@@ -1,4 +1,4 @@
-@extends('{{bladeFolderName}}.layouts.master')
+@extends('{{namespace}}.layouts.master')
 @section('content')
     <x-page-header previousPage="Pages" currentPage="Users" previousPageLink="#">
         <x-header-button label="New User" :href="route('users.create')" />
@@ -16,7 +16,7 @@
 
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0" id="table">
-                        @include('dashboard.users.partials._table')
+                        @include('{{namespace}}.{{bladeFolderName}}.partials._table')
                     </div>
                 </div>
 

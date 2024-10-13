@@ -1,4 +1,4 @@
-@extends('{{bladeFolderName}}.layouts.master')
+@extends('{{namespace}}.layouts.master')
 @section('content')
     <x-page-header previousPage="Pages" currentPage="New {{modelName}}" previousPageLink="#" />
     <div class="row">

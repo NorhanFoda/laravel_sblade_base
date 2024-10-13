@@ -1,4 +1,4 @@
-@extends('{{bladeFolderName}}.layouts.master')
+@extends('{{namespace}}.layouts.master')
 @section('content')
 
 @endsection
