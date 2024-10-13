@@ -19,7 +19,8 @@
                             </p>
                         </div>
                         <div class="col-lg-6 col-5 my-auto text-end">
-                            <div class="dropdown float-lg-end pe-4">
+                            <div
+                                class="dropdown @if(app()->getLocale()=='ar') float-lg-start  @else  float-lg-end @endif pe-4 ">
                                 <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
                                    aria-expanded="false">
                                     <i class="fa fa-ellipsis-v text-secondary" aria-hidden="true"></i>
