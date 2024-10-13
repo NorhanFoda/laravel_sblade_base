@@ -7,14 +7,15 @@
 
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <x-sidebar.item href="{{ route('home') }}" icon="dashboard" label="{{ __('messages.sidebar.dashboard') }}"/>
+            <x-sidebar.item href="{{ route('home') }}" icon="dashboard" label="{{ __('messages.sidebar.dashboard') }}"
+                :activeList="['home']" />
             @canany(['create-user', 'read-user', 'update-user', 'delete-user'])
-                <x-sidebar.item href="{{ route('users.index') }}" icon="person"
-                                label="{{ __('messages.sidebar.users') }}"/>
+                <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="{{ __('messages.sidebar.users') }}"
+                    :activeList="['users.index', 'users.create', 'users.edit']" />
             @endcanany
             @canany(['create-role', 'read-role', 'update-role', 'delete-role'])
                 <x-sidebar.item href="{{ route('roles.index') }}" icon="person"
-                                label="{{ __('messages.sidebar.roles_and_permissions') }}"/>
+                    label="{{ __('messages.sidebar.roles_and_permissions') }}" :activeList="['roles.index', 'roles.create', 'roles.edit']" />
             @endcanany
 
             <li></li>
