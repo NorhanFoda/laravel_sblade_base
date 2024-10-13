@@ -1,9 +1,9 @@
 <aside
     class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
     id="sidenav-main">
-    <x-sidebar.header />
+    <x-sidebar.header/>
 
-    <hr class="horizontal light mt-0 mb-2" />
+    <hr class="horizontal light mt-0 mb-2"/>
 
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
@@ -17,6 +17,8 @@
                 <x-sidebar.item href="{{ route('roles.index') }}" icon="person"
                     label="{{ __('messages.sidebar.roles_and_permissions') }}" :activeList="['roles.index', 'roles.create', 'roles.edit']" />
             @endcanany
+
+            <li></li>
             {{-- <x-sidebar.item href="./pages/tables.html" icon="table_view" label="Tables" />
             <x-sidebar.item href="./pages/billing.html" icon="receipt_long" label="Billing" />
             <x-sidebar.item href="./pages/virtual-reality.html" icon="view_in_ar" label="Virtual Reality" />
@@ -32,6 +34,6 @@
         </ul>
     </div>
 
-    <x-sidebar.footer />
+    <x-sidebar.footer/>
 
 </aside>

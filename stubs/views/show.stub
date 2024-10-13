@@ -1,0 +1,4 @@
+@extends('{{namespace}}.layouts.master')
+@section('content')
+
+@endsection

@@ -47,13 +47,36 @@ class MakeRouteCommand extends Command
             $routesContent = preg_replace('/^(use .*?;)/m', "$1\n$useStatement", $routesContent, 1);
         }
         $routeName = Str::plural(Str::lower($modelName));
-        $route = "Route::resource('$routeName', $controllerName::class);";
-        if ($type == 'api') {
-            $route = "Route::apiResource('$routeName', $controllerName::class);";
+        $namespaceGroup = Str::lower($namespace);
+        $route = $type === 'api' ? "Route::apiResource('$routeName', $controllerName::class);" : "Route::resource('$routeName', $controllerName::class);";
+        //  $routesContent .= "\n$route\n";
+        $namespaceGroup = "Route::as('$namespaceGroup.')->prefix('$namespaceGroup')->group(function () {\n    $route\n});";
+        if (!preg_match('/Route::(apiResource|resource)\(\'' . $routeName . '\',\s*' . $controllerName . '::class\);/', $routesContent)) {
+            $routesContent .= "\n$namespaceGroup\n";
         }
-        $routesContent .= "\n$route\n";
-
         File::put($routesFilePath, $routesContent);
+
+        //add route to sidebar
+        $sidebarFilePath = base_path("resources/views/" . $namespace . "/layouts/sidebar.blade.php");
+        $sidebarContent = File::get($sidebarFilePath);
+        //add a route to sidebar by appending it inside ul tag
+        /*<x-sidebar.item href="{{ route('users.index') }}" icon="person"
+                                label="{{ __('messages.sidebar.users') }}"/>*/
+        $modelName = Str::lower($modelName);
+        $modelNameRoute = Str::plural($modelName);
+        $namespace = Str::lower($namespace);
+
+        $routeLink = "
+                    @can('read-$modelName')
+                    <x-sidebar.item
+                    href=\"{{ route('$namespace.$modelNameRoute.index') }}\"
+                    icon=\"person\"
+                    label=\"{{ __('messages.sidebar.$modelName') }}\"/>
+                    @endcan
+                    <li></li>
+                    ";
+        $sidebarContent = preg_replace('#<li></li>#', (string)$routeLink, $sidebarContent, 1);
+        File::put($sidebarFilePath, $sidebarContent);
         $this->info("Route added to routes/$type.php successfully.");
     }
 }

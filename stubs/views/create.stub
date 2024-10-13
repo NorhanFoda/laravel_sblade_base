@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('{{namespace}}.layouts.master')
 @section('content')
     <x-page-header previousPage="Pages" currentPage="New {{modelName}}" previousPageLink="#" />
     <div class="row">
@@ -9,7 +9,7 @@
                         action="{{ route('{{namespace}}.{{bladeFolderName}}.store') }}"
                         data-redirect="{{ route('{{namespace}}.{{bladeFolderName}}.index') }}">
                         @csrf
-                      @include('{{namespace}}.{{folderName}}.partials._form')
+                      @include('{{namespace}}.{{bladeFolderName}}.partials._form')
                     </form>
                 </div>
                 <div class="card-footer">
