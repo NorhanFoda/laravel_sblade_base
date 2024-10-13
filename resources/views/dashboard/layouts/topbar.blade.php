@@ -107,7 +107,7 @@
                         <a href="{{ route('login.form') }}" class="nav-link text-body font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
 
-                            <span class="d-sm-inline d-none">{{ __('app.titles.signin') }}</span>
+                            <span class="d-sm-inline d-none">{{ __('messages.btns.signin') }}</span>
                         </a>
                     </li>
                 @endguest
@@ -116,7 +116,7 @@
                         <form class="text-start" id="logoutForm" action="{{ route('logout') }}"
                             data-redirect="{{ route('login.form') }}">
                             @csrf
-                            <x-form.submit shape="href" :label="__('app.btns.signout')" id="submitLogout">
+                            <x-form.submit shape="href" :label="__('messages.btns.signout')" id="submitLogout">
                                 <x-slot name="icon">
                                     <i class='fa fa-user me-sm-1'></i>
                                 </x-slot>

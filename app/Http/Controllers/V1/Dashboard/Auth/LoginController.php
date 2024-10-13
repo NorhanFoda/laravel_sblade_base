@@ -16,7 +16,7 @@ class LoginController extends BaseWebController
 
     use BaseApiResponseTrait;
 
-    private string $bladeParentFolder = 'V1.Dashboard.';
+    private string $bladeParentFolder = 'dashboard.';
     
     public function __construct(UserContract $contract)
     {
@@ -50,9 +50,9 @@ class LoginController extends BaseWebController
         }
 
         if (request()->ajax()) {
-            return $this->errorWrongArgs(__('app.messages.wrong_credentials'));
+            return $this->errorWrongArgs(__('messages.wrong_credentials'));
         }
 
-        return $this->redirectTo('login.form', 'error', __('app.messages.wrong_credentials'));
+        return $this->redirectTo('login.form', 'error', __('messages.wrong_credentials'));
     }
 }

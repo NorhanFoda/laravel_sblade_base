@@ -8,10 +8,12 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Repositories\Contracts\BaseContract;
+use App\Traits\BaseApiResponseTrait;
 use Illuminate\Routing\Controllers\Middleware;
 
 class BaseWebController extends Controller
 {
+    use BaseApiResponseTrait;
     
     protected bool $order = true;
     protected BaseContract $contract;

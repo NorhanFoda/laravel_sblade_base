@@ -16,6 +16,6 @@
 
 <x-confirm
     :id="$id" 
-    :title="__('app.confirm.delete.title')"
-    :content="__('app.confirm.delete.message')"
+    :title="__('confirm_modal.delete.title')"
+    :content="__('confirm_modal.delete.message')"
     :formId="'deleteForm-'.$id"/>

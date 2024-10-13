@@ -46,13 +46,13 @@
                 <div class="d-flex align-items-center">
                     @can('update-{{permissionName}}')
                         <div class="me-3">
-                            <x-table.edit-btn :label="__('app.table.actions.edit')"
+                            <x-table.edit-btn :label="__('messages.table.actions.edit')"
                                               :href="route('{{namespace}}.{{bladeFolderName}}.edit', $resource->id)"/>
                         </div>
                     @endcan
                     @can('delete-{{permissionName}}')
                         <div>
-                            <x-table.delete-btn :label="__('app.table.actions.delete')"
+                            <x-table.delete-btn :label="__('messages.table.actions.delete')"
                                                 :id="$resource->id"
                                                 :action="route('{{namespace}}.{{bladeFolderName}}.destroy', $resource->id)"
                                                 :redirect="route('{{namespace}}.{{bladeFolderName}}.index')"/>

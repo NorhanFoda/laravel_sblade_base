@@ -19,7 +19,8 @@ $('[id^=confirmDelete-]').on('click', function() {
         error: function(errors) {
             toastr.error('An error occurred while deleting the item.');
             if (errors.status === 500) {
-                toastr.error(errors.responseJSON.errors.message[0]);
+                toastr.error(errors.responseJSON?.message);
+                // toastr.error(errors.responseJSON.errors.message[0]);
             }
         }
     });

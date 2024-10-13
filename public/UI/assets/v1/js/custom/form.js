@@ -32,8 +32,7 @@ function submit() {
             }
         },
         error: function(error) {
-            // console.log(error.responseText);
-            toastr.error(JSON.parse(error.responseText)?.message);
+            toastr.error(error.responseJSON?.message);
             if (error.status === 422) {
                 let errors = error.responseJSON.errors;
                 $('.validation-error').html('');

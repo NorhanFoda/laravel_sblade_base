@@ -12,7 +12,7 @@
                                 labelClass="font-weight-bold" 
                                 inputClass="main-checkbox" 
                                 :id="$model" 
-                                :checked="in_array($model, $rolePermissions?->pluck('model')->toArray())"
+                                :checked="isset($rolePermissions) && in_array($model, $rolePermissions?->pluck('model')->toArray())"
                                 :required="true"
                                 :disabled="request()->routeIs('roles.show')" />
                         </div>
@@ -22,14 +22,14 @@
                     @foreach ($permissionItems as $item)
                         <div class="d-flex justify-content-lg-start justify-content-center p-2">
                             <x-form.checkbox 
-                                name="role_permissions"
+                                name="role_permissions[]"
                                 label="{{ $item->name }}"
                                 :value="$item->name"
                                 inputClass="child-checkbox form-check-input" 
                                 :dataModel="$model" 
                                 :isArray="true" 
                                 :id="$item->id"
-                                :checked="in_array($item->name, $rolePermissions?->pluck('name')->toArray())"
+                                :checked="isset($rolePermissions) && in_array($item->name, $rolePermissions?->pluck('name')->toArray())"
                                 :showError="false"
                                 :disabled="request()->routeIs('roles.show')" />
                         </div>
