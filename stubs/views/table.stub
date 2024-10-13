@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($resources as $resource)
+    @foreach($models as $model)
         <tr>
             <td>
                 <div class="d-flex px-2 py-1">
@@ -47,14 +47,14 @@
                     @can('update-{{permissionName}}')
                         <div class="me-3">
                             <x-table.edit-btn :label="__('messages.table.actions.edit')"
-                                              :href="route('{{namespace}}.{{bladeFolderName}}.edit', $resource->id)"/>
+                                              :href="route('{{namespace}}.{{bladeFolderName}}.edit', $model->id)"/>
                         </div>
                     @endcan
                     @can('delete-{{permissionName}}')
                         <div>
                             <x-table.delete-btn :label="__('messages.table.actions.delete')"
-                                                :id="$resource->id"
-                                                :action="route('{{namespace}}.{{bladeFolderName}}.destroy', $resource->id)"
+                                                :id="$model->id"
+                                                :action="route('{{namespace}}.{{bladeFolderName}}.destroy', $model->id)"
                                                 :redirect="route('{{namespace}}.{{bladeFolderName}}.index')"/>
                         </div>
                     @endcan
