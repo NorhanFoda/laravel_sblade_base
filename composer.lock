@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "70a9bb7a3e50cf50978b9423b0529510",
+    "content-hash": "e2d0cdd268e0f2b3ad593e4981035058",
     "packages": [
         {
             "name": "brick/math",
@@ -2508,6 +2508,82 @@
             "time": "2022-12-02T22:17:43+00:00"
         },
         {
+            "name": "mcamara/laravel-localization",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mcamara/laravel-localization.git",
+                "reference": "9b47bb7db4f6712564ceca448b4df8bb7c7e415a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/9b47bb7db4f6712564ceca448b4df8bb7c7e415a",
+                "reference": "9b47bb7db4f6712564ceca448b4df8bb7c7e415a",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0||^7.0||^8.0||^9.0|^10.0||^11.0",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench-browser-kit": "~3.4|~3.8|~4.0|^7.12|^8.5",
+                "phpunit/phpunit": "6.0.*|^8.0|^9.5.10|^10.0"
+            },
+            "suggest": {
+                "ext-intl": "*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mcamara\\LaravelLocalization\\LaravelLocalizationServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelLocalization": "Mcamara\\LaravelLocalization\\Facades\\LaravelLocalization"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Mcamara\\LaravelLocalization": "src/"
+                },
+                "classmap": []
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Cámara",
+                    "email": "mcamara88@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easy localization for Laravel",
+            "homepage": "https://github.com/mcamara/laravel-localization",
+            "keywords": [
+                "laravel",
+                "localization",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/mcamara/laravel-localization/issues",
+                "source": "https://github.com/mcamara/laravel-localization/tree/v2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/iwasherefirst2",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/mcamara",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-13T08:44:33+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "3.6.0",
             "source": {
@@ -3345,85 +3421,6 @@
                 "source": "https://github.com/phpstan/phpdoc-parser/tree/1.28.0"
             },
             "time": "2024-04-03T18:51:33+00:00"
-        },
-        {
-            "name": "protonemedia/laravel-splade",
-            "version": "1.4.19",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/protonemedia/laravel-splade.git",
-                "reference": "18d5c2475f8842825d0d543e92ba0d00beddc85e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/protonemedia/laravel-splade/zipball/18d5c2475f8842825d0d543e92ba0d00beddc85e",
-                "reference": "18d5c2475f8842825d0d543e92ba0d00beddc85e",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^10.48.2|^11.0.1",
-                "php": "^8.2|^8.3"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.0",
-                "nunomaduro/collision": "^7.10|^8.1",
-                "nunomaduro/larastan": "^2.0.1",
-                "orchestra/testbench": "^8.0|^9.0",
-                "phpunit/phpunit": "^10.4"
-            },
-            "suggest": {
-                "kirschbaum-development/eloquent-power-joins": "Required to enable support sorting by (nested) relationships in Splade Tables (^3.0)",
-                "maatwebsite/excel": "Required to enable support exports in Splade Tables (^3.1)",
-                "spatie/fractalistic": "Required to enable support for Fractal transformers (^2.9)"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ProtoneMedia\\Splade\\ServiceProvider"
-                    ],
-                    "aliases": {
-                        "Animation": "ProtoneMedia\\Splade\\Facades\\Animation",
-                        "SEO": "ProtoneMedia\\Splade\\Facades\\SEO",
-                        "Splade": "ProtoneMedia\\Splade\\Facades\\Splade",
-                        "Toast": "ProtoneMedia\\Splade\\Facades\\Toast"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ProtoneMedia\\Splade\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Pascal Baljet",
-                    "email": "pascal@protone.media",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Laravel Splade: the magic of Inertia.js with the simplicity of Blade.",
-            "homepage": "https://github.com/protonemedia/laravel-splade",
-            "keywords": [
-                "laravel",
-                "laravel-splade",
-                "protonemedia"
-            ],
-            "support": {
-                "issues": "https://github.com/protonemedia/laravel-splade/issues",
-                "source": "https://github.com/protonemedia/laravel-splade/tree/1.4.19"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/pascalbaljet",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-03-20T14:18:47+00:00"
         },
         {
             "name": "psr/clock",
