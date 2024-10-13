@@ -1,7 +1,7 @@
 @extends('{{namespace}}.layouts.master')
 @section('content')
     <x-page-header previousPage="Pages" currentPage="Users" previousPageLink="#">
-        <x-header-button label="New {{$modelName}}" :href="route('{{namespace}}.{{bladeFolderName}}.create')" />
+        <x-header-button label="New {{modelName}}" :href="route('{{namespace}}.{{bladeFolderName}}.create')" />
     </x-page-header>
 
     <div class="row">
