@@ -71,7 +71,8 @@ class MakeRouteCommand extends Command
                     <x-sidebar.item
                     href=\"{{ route('$namespace.$modelNameRoute.index') }}\"
                     icon=\"person\"
-                    label=\"{{ __('messages.sidebar.$modelName') }}\"/>
+                    label=\"{{ __('messages.sidebar.$modelName') }}\"
+                    :activeList=\"['$namespace.$modelNameRoute.index', '$namespace.$modelNameRoute.create', '$namespace.$modelNameRoute.edit']\"/>
                     @endcan
                     <li></li>
                     ";
