@@ -32,12 +32,12 @@ class UsersTableSeeder extends Seeder
         }
         $user->assignRole($role);
 
-        for ($i = 1; $i < 100; $i++) {
-            $user = User::create([
-                'name' => 'user' . $i,
-                'email' => 'user' . $i . '@admin.com',
-                'password' => 123456,
-            ]);
-        }
+//        for ($i = 1; $i < 100; $i++) {
+//            $user = User::create([
+//                'name' => 'user' . $i,
+//                'email' => 'user' . $i . '@admin.com',
+//                'password' => 123456,
+//            ]);
+//        }
     }
 }

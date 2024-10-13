@@ -37,14 +37,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
   <link id="pagestyle" href="{{asset('UI/assets/v1/css/material-dashboard.css?v=3.1.0')}}" rel="stylesheet" />
-  <!-- Nepcha Analytics (nepcha.com) -->
-  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
-  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   @stack('css')
 </head>
 
 <body class="bg-gray-200">
-  
+
   @yield('content')
 
   <footer class="footer position-absolute bottom-2 py-2 w-100">
@@ -99,7 +96,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('UI/assets/v1/js/material-dashboard.min.js?v=3.1.0') }}"></script>
-  
+
     {{-- toaster --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
