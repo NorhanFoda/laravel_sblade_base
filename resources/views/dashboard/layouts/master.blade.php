@@ -26,7 +26,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('UI/assets/v1/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{asset('UI/assets/v1/img/favicon.png')}}">
 
-    <title>{{config('app.name')}}</title>
+    <title>{{config('app.name')}} | @yield('title')</title>
 
     @include('dashboard.layouts.styles')
 
