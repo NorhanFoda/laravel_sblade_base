@@ -1,20 +1,23 @@
 <aside
     class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
     id="sidenav-main">
-    <x-sidebar.header />
+    <x-sidebar.header/>
 
-    <hr class="horizontal light mt-0 mb-2" />
+    <hr class="horizontal light mt-0 mb-2"/>
 
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <x-sidebar.item href="{{ route('home') }}" icon="dashboard" label="{{ __('messages.sidebar.dashboard') }}" />
+            <x-sidebar.item href="{{ route('home') }}" icon="dashboard" label="{{ __('messages.sidebar.dashboard') }}"/>
             @canany(['create-user', 'read-user', 'update-user', 'delete-user'])
-                <x-sidebar.item href="{{ route('users.index') }}" icon="person" label="{{ __('messages.sidebar.users') }}" />
+                <x-sidebar.item href="{{ route('users.index') }}" icon="person"
+                                label="{{ __('messages.sidebar.users') }}"/>
             @endcanany
             @canany(['create-role', 'read-role', 'update-role', 'delete-role'])
                 <x-sidebar.item href="{{ route('roles.index') }}" icon="person"
-                    label="{{ __('messages.sidebar.roles_and_permissions') }}" />
+                                label="{{ __('messages.sidebar.roles_and_permissions') }}"/>
             @endcanany
+
+            <li></li>
             {{-- <x-sidebar.item href="./pages/tables.html" icon="table_view" label="Tables" />
             <x-sidebar.item href="./pages/billing.html" icon="receipt_long" label="Billing" />
             <x-sidebar.item href="./pages/virtual-reality.html" icon="view_in_ar" label="Virtual Reality" />
@@ -30,6 +33,6 @@
         </ul>
     </div>
 
-    <x-sidebar.footer />
+    <x-sidebar.footer/>
 
 </aside>

@@ -47,7 +47,7 @@ class MakeRouteCommand extends Command
             $routesContent = preg_replace('/^(use .*?;)/m', "$1\n$useStatement", $routesContent, 1);
         }
         $routeName = Str::plural(Str::lower($modelName));
-
+        $modelName = Str::plural($modelName);
         $namespaceGroup = Str::lower($namespace);
         $route = $type === 'api' ? "Route::apiResource('$routeName', $controllerName::class);" : "Route::resource('$routeName', $controllerName::class);";
         //  $routesContent .= "\n$route\n";
@@ -56,6 +56,17 @@ class MakeRouteCommand extends Command
             $routesContent .= "\n$namespaceGroup\n";
         }
         File::put($routesFilePath, $routesContent);
+
+        //add route to sidebar
+        $sidebarFilePath = base_path("resources/views/" . $namespace . "/layouts/sidebar.blade.php");
+        $sidebarContent = File::get($sidebarFilePath);
+        //add a route to sidebar by appending it inside ul tag
+        /*<x-sidebar.item href="{{ route('users.index') }}" icon="person"
+                                label="{{ __('messages.sidebar.users') }}"/>*/
+        $routeLink = "<x-sidebar.item href=\"{{ route('$namespace.$modelName.index') }}\" icon=\"person\"
+                                label=\"{{ __('messages.sidebar.$modelName') }}\"/>";
+        $sidebarContent = preg_replace('#<li></li>#', (string)$routeLink, $sidebarContent, 1);
+        File::put($sidebarFilePath, $sidebarContent);
         $this->info("Route added to routes/$type.php successfully.");
     }
 }
