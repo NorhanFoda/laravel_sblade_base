@@ -17,7 +17,7 @@ class LoginController extends BaseWebController
     use BaseApiResponseTrait;
 
     private string $bladeParentFolder = 'dashboard.';
-    
+
     public function __construct(UserContract $contract)
     {
         parent::__construct($contract);

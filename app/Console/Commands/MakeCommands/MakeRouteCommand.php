@@ -47,12 +47,14 @@ class MakeRouteCommand extends Command
             $routesContent = preg_replace('/^(use .*?;)/m', "$1\n$useStatement", $routesContent, 1);
         }
         $routeName = Str::plural(Str::lower($modelName));
-        $route = "Route::resource('$routeName', $controllerName::class);";
-        if ($type == 'api') {
-            $route = "Route::apiResource('$routeName', $controllerName::class);";
-        }
-        $routesContent .= "\n$route\n";
 
+        $namespaceGroup = Str::lower($namespace);
+        $route = $type === 'api' ? "Route::apiResource('$routeName', $controllerName::class);" : "Route::resource('$routeName', $controllerName::class);";
+        //  $routesContent .= "\n$route\n";
+        $namespaceGroup = "Route::as('$namespaceGroup.')->prefix('$namespaceGroup')->group(function () {\n    $route\n});";
+        if (!preg_match('/Route::(apiResource|resource)\(\'' . $routeName . '\',\s*' . $controllerName . '::class\);/', $routesContent)) {
+            $routesContent .= "\n$namespaceGroup\n";
+        }
         File::put($routesFilePath, $routesContent);
         $this->info("Route added to routes/$type.php successfully.");
     }
