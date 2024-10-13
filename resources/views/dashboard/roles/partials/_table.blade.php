@@ -2,7 +2,7 @@
     <thead class="thead-dark">
     <tr>
         <th class="text-uppercase text-secondary font-weight-bolder text-center">
-            {{ __('messages.table.header.id') }}
+           #
         </th>
         <th class="text-uppercase text-secondary font-weight-bolder ps-2 text-center">
             {{ __('messages.table.header.role') }}
@@ -14,7 +14,7 @@
     @foreach ($models as $model)
         <tr>
             <td class="align-middle text-center">
-                <span class="text-secondary font-weight-bold">{{ $model->id }}</span>
+                <span class="text-secondary font-weight-bold">{{ $loop->iteration }}</span>
             </td>
             <td class="align-middle text-center">
                 <span class="text-secondary font-weight-bold">{{ $model->name }}</span>
