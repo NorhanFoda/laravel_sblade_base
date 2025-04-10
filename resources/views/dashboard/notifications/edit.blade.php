@@ -1,19 +1,20 @@
 @extends('layouts.master')
 @section('content')
-    <x-page-header previousPage="Pages" currentPage="New {{modelName}}" previousPageLink="#" />
+    <x-page-header previousPage="Pages" currentPage="Edit Notification" previousPageLink="#"/>
     <div class="row">
         <div class="col-12">
             <div class="card my-4">
                 <div class="card-body">
                     <form id="form"
-                        action="{{ route('{{namespace}}.{{folderName}}.store') }}"
-                        data-redirect="{{ route('{{namespace}}.{{folderName}}.index') }}">
+                          action="{{ route('dashboard.notifications.update',$resource->id)}}"
+                          data-redirect="{{ route('dashboard.notifications.index') }}">
                         @csrf
-                      @include('{{namespace}}.{{folderName}}.partials._form')
+                        @method('PUT')
+                        @include('dashboard.notifications.partials.form')
                     </form>
                 </div>
                 <div class="card-footer">
-                    <x-form.submit />
+                    <x-form.submit/>
                 </div>
             </div>
         </div>

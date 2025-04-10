@@ -44,7 +44,7 @@ class BaseWebController extends Controller
         $limit = request('limit', 10);
         $order = request('order', []);
         $filters = request()->all();
-        
+
         $data = array_merge($filters, ['order' => $order, 'limit' => $limit, 'page' => $page]);
         $models = $this->contract->search($filters, $this->relations, $data);
 
@@ -54,7 +54,7 @@ class BaseWebController extends Controller
 
         return $this->indexBlade($models, null, $this->indexPath);
     }
-    
+
     /**
      * indexBlade() Render a Blade view for index.
      *
@@ -166,21 +166,5 @@ class BaseWebController extends Controller
             $middlewares['d'] = new Middleware('permission:delete-' . $model, only: ['destroy']);
         }
         return $middlewares;
-    }
-
-    /**
-     * respondWithModel() used to return result with one model relation
-     *
-     * @param $model
-     * @param string $message
-     * @return JsonResponse
-     */
-    protected function respondWithModel($model, $message = '', $status = ''): JsonResponse
-    {
-        return response()->json([
-            'model' => $model,
-            'message' => $message,
-            'status' => $status
-        ]);
     }
 }

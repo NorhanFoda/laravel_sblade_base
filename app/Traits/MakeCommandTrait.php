@@ -82,7 +82,7 @@ trait MakeCommandTrait
             '{{modelNamePlural}}',
             '{{namespace}}',
             '{{modelObject}}',
-            '{{bladeFolderName}}',
+            '{{folderName}}',
             '{{bladeNamespace}}',
             '{{permissionName}}'
         ];

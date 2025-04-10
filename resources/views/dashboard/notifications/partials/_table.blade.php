@@ -44,18 +44,18 @@
             </td>
             <td class="align-middle">
                 <div class="d-flex align-items-center">
-                    @can('update-{{permissionName}}')
+                    @can('update-')
                         <div class="me-3">
                             <x-table.edit-btn :label="__('app.table.actions.edit')"
-                                              :href="route('{{namespace}}.{{folderName}}.edit', $resource->id)"/>
+                                              :href="route('dashboard.notifications.edit', $resource->id)"/>
                         </div>
                     @endcan
-                    @can('delete-{{permissionName}}')
+                    @can('delete-')
                         <div>
                             <x-table.delete-btn :label="__('app.table.actions.delete')"
                                                 :id="$resource->id"
-                                                :action="route('{{namespace}}.{{folderName}}.destroy', $resource->id)"
-                                                :redirect="route('{{namespace}}.{{folderName}}.index')"/>
+                                                :action="route('dashboard.notifications.destroy', $resource->id)"
+                                                :redirect="route('dashboard.notifications.index')"/>
                         </div>
                     @endcan
                 </div>

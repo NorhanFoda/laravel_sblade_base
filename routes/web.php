@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\Dashboard\HomeController;
-use App\Http\Controllers\V1\Dashboard\RoleController;
-use App\Http\Controllers\V1\Dashboard\UserController;
-use App\Http\Controllers\V1\Dashboard\Auth\LoginController;
-use App\Http\Controllers\V1\Dashboard\PermissionController;
-use App\Http\Controllers\V1\Dashboard\Auth\LogoutController;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Http\Controllers\V1\Dashboard\NotificationController;
+use App\Http\Controllers\V1\Web\HomeController;
+use App\Http\Controllers\V1\Web\RoleController;
+use App\Http\Controllers\V1\Web\UserController;
+use App\Http\Controllers\V1\Web\Auth\LoginController;
+use App\Http\Controllers\V1\Web\PermissionController;
+use App\Http\Controllers\V1\Web\Auth\LogoutController;
 
 // -----------------------------START: Auth-----------------------------------
 Route::group(
@@ -31,3 +31,7 @@ Route::group(
     });
 
 });
+
+// -----------------------------START: Dashboard-----------------------------------
+
+Route::resource('notifications', NotificationController::class);

@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('content')
-    <x-page-header previousPage="Pages" currentPage="New {{modelName}}" previousPageLink="#" />
+    <x-page-header previousPage="Pages" currentPage="New Notification" previousPageLink="#" />
     <div class="row">
         <div class="col-12">
             <div class="card my-4">
                 <div class="card-body">
                     <form id="form"
-                        action="{{ route('{{namespace}}.{{folderName}}.store') }}"
-                        data-redirect="{{ route('{{namespace}}.{{folderName}}.index') }}">
+                        action="{{ route('dashboard.notifications.store') }}"
+                        data-redirect="{{ route('dashboard.notifications.index') }}">
                         @csrf
-                      @include('{{namespace}}.{{folderName}}.partials._form')
+                      @include('dashboard.notifications.partials._form')
                     </form>
                 </div>
                 <div class="card-footer">

@@ -11,6 +11,11 @@
                         @csrf
                         @method('PUT')
                         @include('{{namespace}}.{{bladeFolderName}}.partials.form')
+                          action="{{ route('{{namespace}}.{{folderName}}.update',$resource->id)}}"
+                          data-redirect="{{ route('{{namespace}}.{{folderName}}.index') }}">
+                        @csrf
+                        @method('PUT')
+                        @include('{{namespace}}.{{folderName}}.partials.form')
                     </form>
                 </div>
                 <div class="card-footer">
